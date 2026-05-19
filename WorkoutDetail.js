@@ -1,3 +1,4 @@
+// Workout Data
 var workout = {
     name: "Upper Day",
     exercises: [
@@ -59,14 +60,17 @@ var workout = {
     }
   ]
 };
+
+// Set Title
 document.getElementById("workout-title").textContent = workout.name;
 
+// Count Sets
 var totalSets = 0;
-
 for (var i = 0; i < workout.exercises.length; i++) {
   totalSets = totalSets + workout.exercises[i].sets.length;
 }
 
+// Estimate Time
 var totalMinutes = (totalSets * 4) + ((workout.exercises.length - 1) * 2.5);
 var timeText;
 
@@ -84,51 +88,45 @@ if (totalMinutes >= 60) {
   timeText = "~" + Math.round(totalMinutes) + " min";
 }
 
+// Update Info Sub-Heading
 document.getElementById("info-exercises").textContent = workout.exercises.length + " exercises";
 document.getElementById("info-time").textContent = timeText;
 
-// =============================================
-// STEP 5: Build a card for each exercise and add it to the page
-// =============================================
+// Build Exercise Cards
 var list = document.getElementById("exercise-list");
 
 for (var i = 0; i < workout.exercises.length; i++) {
-  var exercise = workout.exercises[i];
+    var exercise = workout.exercises[i];
 
-  var rowsHTML = "";
+    var rowsHTML = "";
 
-  for (var j = 0; j < exercise.sets.length; j++) {
-    var set = exercise.sets[j];
+    for (var j = 0; j < exercise.sets.length; j++) {
+        var set = exercise.sets[j];
 
-    var repsText = set.reps;
-    // if (set.reps === "failure") {
-    //   repsText = '<span class="failure">F</span>';
-    // } else {
-    //   repsText = set.reps;
-    // }
+        var repsText = set.reps;
 
-    rowsHTML = rowsHTML +
-      "<tr>" +
-        '<td class="set-num">' + (j + 1) + "</td>" +
-        "<td>" + repsText + "</td>" +
-        "<td>" + set.weight + " lbs</td>" +
-      "</tr>";
-  }
+        rowsHTML = rowsHTML +
+            "<TR>" +
+                '<TD class="set-num">' + (j + 1) + "</TD>" +
+                "<TD>" + repsText + "</TD>" +
+                "<TD>" + set.weight + " lbs</TD>" +
+            "</TR>";
+    }
 
-  var cardHTML =
-    '<div class="exercise-card">' +
-      '<div class="card-title">' + exercise.name + "</div>" +
-      '<table class="sets-table">' +
-        "<thead>" +
-          "<tr>" +
-            "<th>Set</th>" +
-            "<th>Reps</th>" +
-            "<th>Weight</th>" +
-          "</tr>" +
-        "</thead>" +
-        "<tbody>" + rowsHTML + "</tbody>" +
-      "</table>" +
-    "</div>";
+    var cardHTML =
+        '<DIV class="exercise-card">' +
+            '<DIV class="card-title">' + exercise.name + "</DIV>" +
+            '<TABLE class="sets-table">' +
+                "<THEAD>" +
+                    "<TR>" +
+                        "<TH>Set</TH>" +
+                        "<TH>Reps</TH>" +
+                        "<TH>Weight</TH>" +
+                    "</TR>" +
+                "</THEAD>" +
+            "<TBODY>" + rowsHTML + "</TBODY>" +
+            "</TABLE>" +
+        "</DIV>";
 
-  list.innerHTML = list.innerHTML + cardHTML;
+    list.innerHTML = list.innerHTML + cardHTML;
 }
