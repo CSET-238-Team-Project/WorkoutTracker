@@ -37,12 +37,13 @@ body {
     color: #FFFFFF;
     display: flex;
     align-items: center;
-    padding: 4px;
+    padding: 4px 4px 4px 0;
+    margin-left: -5px;
 }
 
 #workout-title {
     font-size: 20px;
-    font-weight: 60px;
+    font-weight: 600;
 }
 
 #workout-summary {
