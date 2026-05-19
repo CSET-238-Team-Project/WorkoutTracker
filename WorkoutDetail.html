@@ -4,14 +4,51 @@
         <META charset="UTF-8" />
         <META name="viewport" content="width=device-width, initial-scale=1.0" />
         <TITLE>Workout Detail</TITLE>
-        <LINK rel="stylesheet" href="Workout_Detail.css" />
+        <LINK rel="stylesheet" href="WorkoutDetail.css" />
     </HEAD>
     <BODY>
-        <DIV ID="app">
+        <DIV id="app">
             <nav id="top-nav">
                 <button id="back-button" aria-label="Go back" onclick="goBack()"></button>
                 <h1 id="workout-title">Upper Day</h1>
             </nav>
+
+        <DIV id="workout-summary">
+            <SPAN id="info-exercises">8 exercises</SPAN>
+            <SPAN id="info-time">~1 hr 22 min</SPAN>
+            <SPAN id="info-volume">8,560lbs</SPAN>
         </DIV>
+
+        <DIV id="exercise-list">
+
+            <DIV class="exercise-card">
+                <DIV class="card-title">Incline Bench Press (Smith Machine)</DIV>
+                <TABLE class="sets-table">
+                    <THEAD>
+                        <TR>
+                            <TH>Set</TH>
+                            <TH>Reps</TH>
+                            <TH>Weight</TH>
+                        </TR>
+                    </THEAD>
+                    <TBODY>
+                        <TR>
+                            <TD class="set-num">1</TD>
+                            <TD>8</TD>
+                            <TD>135 lbs</TD>
+                        </TR>
+                        <TR>
+                            <TD class="set-num">2</TD>
+                            <TD>8</TD>
+                            <TD>135 lbs</TD>
+                        </TR>
+                    </TBODY>
+                </TABLE>
+            </DIV>
+
+        </DIV>
+    </DIV>
+
+
     </BODY>
 </HTML>
