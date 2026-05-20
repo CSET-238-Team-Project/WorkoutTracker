@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+
+        <title>Account Page</title>
+
+        <style>
+            *{
+                margin:0;
+                padding:0;
+                box-sizing:border-box;
+                font-family: Arial, Helvetica, sans-serif;
+            }
+
+            body{
+                background:#000;
+                color:white;
+                display:flex;
+                justify-content:center;
+                padding:30px 15px;
+            }
+
+            .container{
+                width:100%;
+                max-width:420px;
+            }
+
+            h1{
+                font-size:38px;
+                margin-bottom:25px;
+                font-weight:700;
+            }
+
+            .card{
+                background:#111;
+                border:1px solid #1f1f1f;
+                border-radius:24px;
+                padding:25px;
+                margin-bottom:22px;
+            }
+
+            .profile-section{
+                display:flex;
+                flex-direction:column;
+                align-items:center;
+                text-align:center;
+            }
+
+            .profile-pic{
+                width:110px;
+                height:110px;
+                border-radius:50%;
+                overflow:hidden;
+                border:3px solid #222;
+                margin-bottom:18px;
+            }
+
+            .profile-pic img{
+                width:100%;
+                height:100%;
+                object-fit:cover;
+            }
+
+            .username{
+                font-size:26px;
+                font-weight:700;
+                margin-bottom:8px;
+            }
+
+            .subtext{
+                color:#8a8a8a;
+                font-size:14px;
+            }
+
+            .section-title{
+                font-size:22px;
+                font-weight:700;
+                margin-bottom:18px;
+            }
+
+            .progress-top{
+                display:flex;
+                justify-content:space-between;
+                margin-bottom:14px;
+                color:#bdbdbd;
+                font-size:14px;
+            }
+
+            .progress-bar{
+                width:100%;
+                height:16px;
+                background:#1f1f1f;
+                border-radius:999px;
+                overflow:hidden;
+            }
+
+            .progress-fill{
+                width:80%;
+                height:100%;
+                background:#6d95ea;
+                border-radius:999px;
+            }
+
+            .button{
+                width:100%;
+                height:60px;
+                border:none;
+                border-radius:20px;
+                font-size:18px;
+                font-weight:700;
+                cursor:pointer;
+                margin-bottom:18px;
+                transition:0.2s;
+            }
+
+            .settings-btn{
+                background:#111;
+                color:white;
+                border:1px solid #222;
+            }
+
+            .settings-btn:hover{
+                background:#1a1a1a;
+            }
+
+            .signout-btn{
+                background:#6d95ea;
+                color:white;
+            }
+
+            .signout-btn:hover{
+                opacity:0.9;
+            }
+        </style>
+    </head>
+
+    <body>
+
+        <div class="container">
+
+            <h1>Account</h1>
+
+            <!-- Profile Card -->
+            <div class="card profile-section">
+
+                <div class="profile-pic">
+                    <img src="https://via.placeholder.com/150" alt="Profile Picture">
+                </div>
+
+                <div class="username">Carson Page</div>
+
+                <div class="subtext">
+                    Workout Consistency: 4 Weeks
+                </div>
+
+            </div>
+
+            <!-- Weekly Progress -->
+            <div class="card">
+
+                <div class="section-title">
+                    Weekly Workouts
+                </div>
+
+                <div class="progress-top">
+                    <span>4 / 5 workouts completed</span>
+                    <span>80%</span>
+                </div>
+
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+
+            </div>
+
+            <!-- Buttons -->
+            <button class="button settings-btn">
+                Profile Settings
+            </button>
+
+            <button class="button signout-btn">
+                Sign Out
+            </button>
+
+        </div>
+
+    </body>
+</html>
