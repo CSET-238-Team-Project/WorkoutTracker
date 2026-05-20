@@ -142,7 +142,7 @@ async function finishWorkout()
 {
   alert("Goodjob!\nClick OK to save Workout!");
   clearInterval(timerInterval);
-  window.location.href = 'homepage.html';
+  window.location.href = 'index.html';
 }
 
 render();
