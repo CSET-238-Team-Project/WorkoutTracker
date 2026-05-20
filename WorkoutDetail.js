@@ -130,3 +130,8 @@ for (var i = 0; i < workout.exercises.length; i++) {
 
     list.innerHTML = list.innerHTML + cardHTML;
 }
+
+function startWorkout() 
+{
+  window.location.href = 'LoggerPage.html';
+}

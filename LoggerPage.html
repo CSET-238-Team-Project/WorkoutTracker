@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Workout Logger</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@latest/tabler-icons.min.css" />
+    <link rel="stylesheet" href="logger.css" />
+  </head>
+
+  <body>
+    <div class="header">
+      <button class="back-btn" onclick="showConfirm()">
+        <i class="ti ti-arrow-left"></i> Back
+      </button>
+      <span class="workout-title">Push Day A</span>
+      <div class="timer-pill">
+        <span class="timer-dot"></span>
+        <span id="timerDisplay">00:00</span>
+      </div>
+    </div>
+
+    <div class="exercises" id="exerciseList"></div>
+
+    <div class="bottom-bar">
+      <button class="cancel-btn" onclick="showConfirm()">Discard</button>
+      <button class="finish-btn" onclick="finishWorkout()">Finish workout</button>
+    </div>
+
+    <!-- Confirm dialog -->
+    <div class="confirm-overlay hidden" id="confirmOverlay">
+      <div class="confirm-box">
+        <h3>Leave workout?</h3>
+        <p>Your progress will be saved and you'll return to the home page.</p>
+        <div class="confirm-actions">
+          <button class="conf-stay" onclick="hideConfirm()">Stay</button>
+          <button class="conf-leave" onclick="goHome()">Leave</button>
+        </div>
+      </div>
+    </div>
+
+    <script src="logger.js"></script>
+  </body>
+</html>
