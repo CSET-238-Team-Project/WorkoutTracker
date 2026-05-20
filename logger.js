@@ -1,4 +1,4 @@
-// ── Exercise data (replace with your Firestore fetch) ────────────────────────
+// exercise data, will replace with firestore calls
 const exercises = [
 { name: "Bench press", icon: "ti-barbell", sets: [{ w: 60, r: 10 }, { w: 65, r: 8 }, { w: 65, r: 8 }] },
 { name: "Overhead press", icon: "ti-arrow-up", sets: [{ w: 40, r: 10 }, { w: 42.5, r: 8 }] },
@@ -8,7 +8,7 @@ const exercises = [
 let openSections = new Set([0]);
 let doneSets = {};
 
-// ── Timer (starts when page opens) ───────────────────────────────────────────
+// timer, starts right when page opens up
 const startTime = Date.now();
 const timerInterval = setInterval(() => {
   let totalSecs = Math.floor((Date.now() - startTime) / 1000);
@@ -18,7 +18,7 @@ const timerInterval = setInterval(() => {
     String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
 }, 1000);
 
-// ── Render ────────────────────────────────────────────────────────────────────
+// render for all cards and workouts, updates in real time when interacted with
 function render() {
   const list = document.getElementById('exerciseList');
   list.innerHTML = '';
@@ -88,50 +88,59 @@ function render() {
   });
 }
 
-// ── Actions ───────────────────────────────────────────────────────────────────
-function toggleSection(ei) {
-  if (openSections.has(ei)) openSections.delete(ei);
-  else openSections.add(ei);
+// functions
+function toggleSection(ei) 
+{
+  if (openSections.has(ei)) 
+    openSections.delete(ei);
+  else 
+    openSections.add(ei);
   render();
 }
 
-function toggleDone(ei, si) {
+function toggleDone(ei, si) 
+{
   const key = `${ei}-${si}`;
-  if (doneSets[key]) delete doneSets[key];
-  else doneSets[key] = true;
+  if (doneSets[key]) 
+    delete doneSets[key];
+  else 
+    doneSets[key] = true;
   render();
 }
 
-function addSet(ei) {
+function addSet(ei) 
+{
   const last = exercises[ei].sets.slice(-1)[0] || { w: 0, r: 8 };
   exercises[ei].sets.push({ ...last });
   render();
 }
 
-function removeSet(ei) {
-  if (exercises[ei].sets.length > 1) exercises[ei].sets.pop();
+function removeSet(ei) 
+{
+  if (exercises[ei].sets.length > 1) 
+    exercises[ei].sets.pop();
   render();
 }
 
-function showConfirm() {
+function showConfirm() 
+{
   document.getElementById('confirmOverlay').classList.remove('hidden');
 }
 
-function hideConfirm() {
+function hideConfirm() 
+{
   document.getElementById('confirmOverlay').classList.add('hidden');
 }
 
-function goHome() {
+function goHome() 
+{
   clearInterval(timerInterval);
-  // Replace with your actual navigation, e.g: window.location.href = 'index.html';
-  alert('Navigating back to home page...');
+  window.location.href = 'homepage.html';
 }
 
 function finishWorkout() {
   clearInterval(timerInterval);
-  // Replace with your actual navigation, e.g: window.location.href = 'summary.html';
-  alert('Workout finished! Navigating to summary...');
+  window.location.href = 'homepage.html';
 }
 
-// ── Init ──────────────────────────────────────────────────────────────────────
 render();
