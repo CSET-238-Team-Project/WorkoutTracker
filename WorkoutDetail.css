@@ -1,0 +1,148 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+body {
+    background-color: #0A0A0A;
+    color: #FFFFFF;
+    font-family: 'DM Sans', sans-serif;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+}
+
+#app {
+    width: 100%;
+    max-width: 480px;
+    padding: 0 20px;
+
+}
+
+#top-nav {
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    background-color: #0A0A0A;
+    display: flex;
+    align-items: center;
+    gap:12px; padding: 16px 0 12px;
+}
+
+#back-button {
+    background: none;
+    border: none;
+    cursor: pointer;
+    color: #FFFFFF;
+    display: flex;
+    align-items: center;
+    padding: 4px 4px 4px 0;
+    margin-left: -5px;
+}
+
+#workout-title {
+    font-size: 20px;
+    font-weight: 600;
+    margin-left: 20px;
+}
+
+#workout-summary {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+    padding: 4px 0 16px;
+    color: #8A8A8A;
+    font-size: 13px;
+}
+
+#exercise-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 120px;
+}
+
+.exercise-card {
+    background-color: #1A1A1A;
+    border: 1px solid #2A2A2A;
+    border-radius: 14px;
+    padding: 16px;
+}
+
+.card-title {
+    font-size: 15px;
+    font-weight: 600;
+    margin-bottom: 12px;
+}
+
+.sets-table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+.sets-table TH {
+    font-size: 11px;
+    font-weight: 600;
+    text-transform: uppercase;
+    color: #5A5A5A;
+    text-align: left;
+    padding-bottom: 6px;
+}
+
+.sets-table TH:not(:first-child), .sets-table TD:not(:first-child) {
+    text-align: right;
+}
+
+.sets-table TD {
+    font-size: 14px;
+    padding: 5px 0;
+    border-top: 1px solid #2A2A2A;
+}
+
+.set-num {
+    color: #8A8A8A;
+}
+
+#bottom-buttons {
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    max-width: 480px;
+    padding: 16px 20px 28px;
+    background-color: #0A0A0A;
+    display: flex;
+    gap: 10px;
+}
+
+#bottom-buttons BUTTON {
+  height: 52px;
+  border-radius: 14px;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  color: #FFFFFF;
+}
+
+#edit-button {
+  flex: 1;
+  background-color: #1A1A1A;
+  border: 1px solid #2A2A2A;
+}
+
+#edit-button:hover {
+  background-color: #222222;
+}
+
+#start-button {
+  flex: 2;
+  background-color: #60A5FA;
+  border: none;
+}
+
+#start-button:hover {
+  opacity: 0.9;
+}
