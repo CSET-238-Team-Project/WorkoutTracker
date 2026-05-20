@@ -138,7 +138,9 @@ function goHome()
   window.location.href = 'homepage.html';
 }
 
-function finishWorkout() {
+async function finishWorkout() 
+{
+  alert("Goodjob!\nClick OK to save Workout!");
   clearInterval(timerInterval);
   window.location.href = 'homepage.html';
 }
