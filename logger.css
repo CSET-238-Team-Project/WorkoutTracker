@@ -1,0 +1,360 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --bg:           #0e0e10;
+  --bg-secondary: #18181b;
+  --bg-card:      #1c1c1f;
+  --bg-hover:     #222226;
+  --text:         #f0f0f0;
+  --text-secondary: #888892;
+  --text-tertiary:  #55555f;
+  --border:       rgba(255,255,255,0.07);
+  --border-hover: rgba(255,255,255,0.14);
+  --accent:       #4f8ef7;
+  --green:        #22c55e;
+  --green-bg:     rgba(34,197,94,0.12);
+  --green-border: rgba(34,197,94,0.3);
+  --radius-md: 8px;
+  --radius-lg: 12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding: 1.5rem 1rem 3rem;
+  max-width: 640px;
+  margin: 0 auto;
+}
+
+/* ── Header ─────────────────────────────────────────────────────────────── */
+.header {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.back-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-md);
+  padding: 7px 13px;
+  cursor: pointer;
+  font-size: 13px;
+  color: var(--text-secondary);
+  transition: background 0.15s, color 0.15s;
+  font-family: inherit;
+}
+.back-btn:hover { background: var(--bg-hover); color: var(--text); }
+
+.workout-title {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  flex: 1;
+  color: var(--text);
+}
+
+.timer-pill {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-hover);
+  border-radius: 999px;
+  padding: 6px 14px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.timer-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: var(--green);
+  animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.25; }
+}
+
+/* ── Exercise cards ──────────────────────────────────────────────────────── */
+.exercises {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 1.5rem;
+}
+
+.exercise-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  overflow: hidden;
+  transition: border-color 0.15s;
+}
+.exercise-card:hover { border-color: var(--border-hover); }
+
+.exercise-header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 16px;
+  cursor: pointer;
+  user-select: none;
+  transition: background 0.15s;
+}
+.exercise-header:hover { background: var(--bg-hover); }
+
+.ex-icon {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-hover);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 17px;
+  color: var(--text-secondary);
+  flex-shrink: 0;
+}
+
+.ex-name {
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text);
+  letter-spacing: -0.01em;
+}
+
+.ex-summary {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  margin-top: 2px;
+}
+
+.ex-chevron {
+  color: var(--text-tertiary);
+  font-size: 17px;
+  transition: transform 0.2s;
+}
+.ex-chevron.open { transform: rotate(180deg); }
+
+/* ── Sets ────────────────────────────────────────────────────────────────── */
+.sets-section {
+  border-top: 1px solid var(--border);
+  padding: 0 16px 14px;
+}
+
+.sets-head {
+  display: grid;
+  grid-template-columns: 28px 1fr 1fr 1fr 40px;
+  gap: 8px;
+  padding: 10px 0 6px;
+}
+.sets-head span {
+  font-size: 10px;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  text-align: center;
+  font-weight: 500;
+}
+.sets-head span:first-child { text-align: left; }
+
+.set-row {
+  display: grid;
+  grid-template-columns: 28px 1fr 1fr 1fr 40px;
+  gap: 8px;
+  align-items: center;
+  padding: 4px 0;
+}
+
+.set-num {
+  font-size: 12px;
+  color: var(--text-tertiary);
+  font-weight: 500;
+}
+
+.set-input {
+  width: 100%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  padding: 6px 4px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  text-align: center;
+  font-family: inherit;
+  font-variant-numeric: tabular-nums;
+  transition: border-color 0.15s, background 0.15s;
+}
+.set-input:focus {
+  outline: none;
+  border-color: var(--accent);
+  background: var(--bg-hover);
+}
+
+.check-btn {
+  width: 32px;
+  height: 32px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-hover);
+  background: var(--bg-secondary);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  color: var(--text-tertiary);
+  transition: all 0.15s;
+}
+.check-btn:hover { border-color: var(--green-border); color: var(--green); }
+.check-btn.done {
+  background: var(--green-bg);
+  border-color: var(--green-border);
+  color: var(--green);
+}
+
+.set-btns {
+  display: flex;
+  gap: 12px;
+  margin-top: 6px;
+}
+
+.add-set-btn,
+.remove-set-btn {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  background: none;
+  border: none;
+  font-size: 12px;
+  font-weight: 500;
+  cursor: pointer;
+  padding: 6px 0 2px;
+  font-family: inherit;
+  transition: color 0.15s;
+}
+
+.add-set-btn {
+  color: var(--accent);
+}
+.add-set-btn:hover { color: #7aaaff; }
+
+.remove-set-btn {
+  color: var(--text-tertiary);
+}
+.remove-set-btn:hover { color: #f87171; }
+
+/* ── Bottom bar ──────────────────────────────────────────────────────────── */
+.bottom-bar {
+  display: flex;
+  gap: 10px;
+  margin-top: 0.75rem;
+}
+
+.finish-btn {
+  flex: 1;
+  padding: 13px;
+  background: var(--accent);
+  color: #fff;
+  border: none;
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  letter-spacing: -0.01em;
+  transition: opacity 0.15s;
+}
+.finish-btn:hover { opacity: 0.85; }
+
+.cancel-btn {
+  padding: 13px 20px;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-hover);
+  border-radius: var(--radius-md);
+  font-size: 14px;
+  font-weight: 500;
+  cursor: pointer;
+  color: var(--text-secondary);
+  font-family: inherit;
+  transition: background 0.15s, color 0.15s;
+}
+.cancel-btn:hover { background: var(--bg-hover); color: var(--text); }
+
+/* ── Confirm overlay ─────────────────────────────────────────────────────── */
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0,0,0,0.6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 100;
+  backdrop-filter: blur(2px);
+}
+.confirm-overlay.hidden { display: none; }
+
+.confirm-box {
+  background: var(--bg-card);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--border-hover);
+  padding: 1.5rem;
+  max-width: 300px;
+  width: 90%;
+}
+.confirm-box h3 {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+  letter-spacing: -0.01em;
+}
+.confirm-box p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-bottom: 1.25rem;
+  line-height: 1.6;
+}
+
+.confirm-actions { display: flex; gap: 8px; }
+.confirm-actions button {
+  flex: 1;
+  padding: 10px;
+  border-radius: var(--radius-md);
+  font-size: 13px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: opacity 0.15s, background 0.15s;
+}
+
+.conf-stay {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-hover);
+  color: var(--text-secondary);
+}
+.conf-stay:hover { background: var(--bg-hover); }
+
+.conf-leave {
+  background: var(--accent);
+  border: none;
+  color: #fff;
+}
+.conf-leave:hover { opacity: 0.85; }
