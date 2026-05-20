@@ -3,62 +3,62 @@ var workout = {
     name: "Upper Day",
     exercises: [
     {
-      name: "Incline Bench Press (Smith Machine)",
-      sets: [
-        { reps: 8, weight: 135 },
-        { reps: 8, weight: 135 }
-      ]
+        name: "Incline Bench Press (Smith Machine)",
+        sets: [
+            { reps: 8, weight: 135 },
+            { reps: 8, weight: 135 }
+        ]
     },
     {
-      name: "Chest Fly (Machine)",
-      sets: [
-        { reps: 8, weight: 120 },
-        { reps: 8, weight: 120 }
-      ]
+        name: "Chest Fly (Machine)",
+        sets: [
+            { reps: 8, weight: 120 },
+            { reps: 8, weight: 120 }
+        ]
     },
     {
-      name: "Single Arm Lateral Raise (Cable)",
-      sets: [
-        { reps: 8, weight: 15 },
-        { reps: 8, weight: 15 }
-      ]
+        name: "Single Arm Lateral Raise (Cable)",
+        sets: [
+            { reps: 8, weight: 15 },
+            { reps: 8, weight: 15 }
+        ]
     },
     {
-      name: "Seated Shoulder Press (Smith Machine)",
-      sets: [
-        { reps: 8, weight: 95 },
-        { reps: 8, weight: 95 }
-      ]
+        name: "Seated Shoulder Press (Smith Machine)",
+        sets: [
+            { reps: 8, weight: 95 },
+            { reps: 8, weight: 95 }
+        ]
     },
     {
-      name: "Lat Pulldown (Cable)",
-      sets: [
-        { reps: 8, weight: 120 },
-        { reps: 8, weight: 120 }
-      ]
+        name: "Lat Pulldown (Cable)",
+        sets: [
+            { reps: 8, weight: 120 },
+            { reps: 8, weight: 120 }
+        ]
     },
     {
-      name: "Seated Cable Row - V Grip (Cable)",
-      sets: [
-        { reps: 8, weight: 90 },
-        { reps: 8, weight: 90 }
-      ]
+        name: "Seated Cable Row - V Grip (Cable)",
+        sets: [
+            { reps: 8, weight: 90 },
+            { reps: 8, weight: 90 }
+        ]
     },
     {
-      name: "Tricep Pushdown (Cable)",
-      sets: [
-        { reps: 8, weight: 55 },
-        { reps: 8, weight: 55 }
-      ]
+        name: "Tricep Pushdown (Cable)",
+        sets: [
+            { reps: 8, weight: 55 },
+            { reps: 8, weight: 55 }
+        ]
     },
     {
-      name: "Preacher Curl (Machine)",
-      sets: [
-        { reps: 8, weight: 70 },
-        { reps: 8, weight: 70 }
-      ]
+        name: "Preacher Curl (Machine)",
+        sets: [
+            { reps: 8, weight: 70 },
+            { reps: 8, weight: 70 }
+        ]
     }
-  ]
+    ]
 };
 
 // Set Title
