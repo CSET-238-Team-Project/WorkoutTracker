@@ -133,6 +133,32 @@
             .signout-btn:hover{
                 opacity:0.9;
             }
+
+            .bottom-nav {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                background: #2a2a2a;
+                display: flex;
+                justify-content: space-around;
+                padding: 16px 0;
+            }
+
+            /* Bottom navigation buttons */
+            .bottom-button {
+                padding: 12px 28px;
+                border-radius: 999px;
+                font-weight: bold;
+                background: #3a3a3a;
+                color: #f8fafc;
+            }
+
+            /* Active bottom button */
+            .bottom-button.active {
+                background: #f8fafc;
+                color: #111827;
+            }
         </style>
     </head>
 
@@ -184,7 +210,11 @@
                 Sign Out
             </button>
 
-        </div>
+            <nav class="bottom-nav">
+                <button class="bottom-button active" onclick="location.href = 'index.html'">Home</button>
+                <button class="bottom-button">Settings</button>
+            </nav>
 
+        </div>
     </body>
 </html>
