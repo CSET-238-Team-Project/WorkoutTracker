@@ -14,9 +14,11 @@
         <i class="ti ti-arrow-left"></i> Back
       </button>
       <span class="workout-title">Push Day A</span>
-      <div class="timer-pill">
+      <div id="timerBox">
+        <div class="timer-pill" id="timerBox">
         <span class="timer-dot"></span>
         <span id="timerDisplay">00:00</span>
+        </div>
       </div>
     </div>
 
@@ -27,7 +29,6 @@
       <button class="finish-btn" onclick="finishWorkout()">Finish workout</button>
     </div>
 
-    <!-- Confirm dialog -->
     <div class="confirm-overlay hidden" id="confirmOverlay">
       <div class="confirm-box">
         <h3>Leave workout?</h3>
