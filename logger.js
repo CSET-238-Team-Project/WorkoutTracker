@@ -9,14 +9,50 @@ let openSections = new Set([0]);
 let doneSets = {};
 
 // timer, starts right when page opens up
-const startTime = Date.now();
-const timerInterval = setInterval(() => {
-  let totalSecs = Math.floor((Date.now() - startTime) / 1000);
+let startTime = Date.now();
+let pausedTime = 0;
+let pauseStart = 0;
+let isPaused = false;
+let timerInterval;
+let timerDisplay; // declared here so updateTimer() can access it
+
+function updateTimer() {
+  if (isPaused) return;
+
+  const totalSecs = Math.floor((Date.now() - startTime - pausedTime) / 1000);
   const mins = Math.floor(totalSecs / 60);
   const secs = totalSecs % 60;
-  document.getElementById('timerDisplay').textContent =
+
+  timerDisplay.textContent =
     String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
-}, 1000);
+}
+
+// Wait for DOM to be ready before querying elements
+document.addEventListener('DOMContentLoaded', function () {
+  timerDisplay = document.getElementById("timerDisplay"); // assigned here
+  const timerBox = document.getElementById("timerBox");
+  const timerDot = document.querySelector(".timer-dot");
+
+  if (!timerDisplay) console.error("timerDisplay element not found");
+  if (!timerBox)     console.error("timerBox element not found");
+  if (!timerDot)     console.error(".timer-dot element not found");
+
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 1000);
+
+  timerBox.addEventListener("click", function () {
+    if (!isPaused) {
+      isPaused = true;
+      pauseStart = Date.now();
+      timerDot.style.backgroundColor = "gray";
+    } else {
+      isPaused = false;
+      pausedTime += Date.now() - pauseStart;
+      timerDot.style.backgroundColor = "#22c55e";
+      updateTimer();
+    }
+  });
+});
 
 // render for all cards and workouts, updates in real time when interacted with
 function render() {
