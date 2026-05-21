@@ -135,7 +135,7 @@ function hideConfirm()
 function goHome() 
 {
   clearInterval(timerInterval);
-  window.location.href = 'homepage.html';
+  window.location.href = 'index.html';
 }
 
 async function finishWorkout() 

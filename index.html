@@ -45,9 +45,6 @@
     /* Profile badge */
     .profile {
       background: #2a2a2a;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-weight: bold;
       color: white;
     }
 
@@ -217,6 +214,22 @@
       background: #f8fafc;
       color: #111827;
     }
+
+    .profile-pic
+    {
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      overflow:hidden;
+      border:3px solid #222;
+    }
+
+    .profile-pic img
+    {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 </head>
 
@@ -231,7 +244,11 @@
         <p>Keep your streak alive today.</p>
       </div>
 
-      <button class="profile" onclick="location.href='Account.html'">GT</button>
+      <div class="profile-pic">
+        <button onclick="location.href='Account.html'">
+          <img src="profile.jpg">
+        </button>
+      </div>
     </div>
 
     <!-- Weekly streak tracker -->
@@ -266,7 +283,7 @@
         <h2>Workout Blocks</h2>
 
         <!-- Display-only add button -->
-        <div class="add-button">+</div>
+        <Button class="add-button" onclick="location.href='LoggerPage.html'">+</Button>
       </div>
 
       <!-- Push day workout block -->
