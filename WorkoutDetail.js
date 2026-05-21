@@ -133,5 +133,6 @@ for (var i = 0; i < workout.exercises.length; i++) {
 
 function startWorkout() 
 {
-  window.location.href = 'LoggerPage.html';
+    localStorage.setItem('activeWorkout' , JSON.stringify(workout));
+    window.location.href = 'LoggerPage.html';
 }
