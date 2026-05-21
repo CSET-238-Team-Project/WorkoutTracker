@@ -135,3 +135,13 @@ function startWorkout()
 {
   window.location.href = 'LoggerPage.html';
 }
+
+function editWorkout()
+{
+    window.location.href = 'EditWorkout.html';
+}
+
+function goBack()
+{
+    window.location.href = 'index.html';
+}
