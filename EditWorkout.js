@@ -62,35 +62,7 @@ var workout = {
 };
 
 // Set Title
-document.getElementById("workout-title").textContent = workout.name;
-
-// Count Sets
-var totalSets = 0;
-for (var i = 0; i < workout.exercises.length; i++) {
-  totalSets = totalSets + workout.exercises[i].sets.length;
-}
-
-// Estimate Time
-var totalMinutes = (totalSets * 4) + ((workout.exercises.length - 1) * 2.5);
-var timeText;
-
-if (totalMinutes >= 60) {
-  var hours = Math.floor(totalMinutes / 60);
-  var mins = Math.round(totalMinutes % 60);
-
-  if (mins > 0) {
-    timeText = "~" + hours + " hr " + mins + " min";
-  } else {
-    timeText = "~" + hours + " hr";
-  }
-} else {
-  // Under 60 minutes, just show minutes
-  timeText = "~" + Math.round(totalMinutes) + " min";
-}
-
-// Update Info Sub-Heading
-document.getElementById("info-exercises").textContent = workout.exercises.length + " exercises";
-document.getElementById("info-time").textContent = timeText;
+document.getElementById("workout-name").textContent = workout.name;
 
 // Build Exercise Cards
 var list = document.getElementById("exercise-list");
@@ -129,20 +101,4 @@ for (var i = 0; i < workout.exercises.length; i++) {
         "</DIV>";
 
     list.innerHTML = list.innerHTML + cardHTML;
-}
-
-function startWorkout() 
-{
-    localStorage.setItem('activeWorkout' , JSON.stringify(workout));
-    window.location.href = 'LoggerPage.html';
-}
-
-function editWorkout()
-{
-    window.location.href = 'EditWorkout.html';
-}
-
-function goBack()
-{
-    window.location.href = 'index.html';
 }

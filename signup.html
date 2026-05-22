@@ -58,13 +58,14 @@
                     // Store user data in Firestore
                     await setDoc(doc(db, "users", user.uid), {
                         email: email,
-                        workoutsThisWeek: 0,
+                        streak: [1, 1, 0, 1, 1, 0, 0],
                         createdAt: new Date()
                     });
 
                     alert("Account created!");
 
                     console.log(user);
+                    location.href = "index.html";
 
                 } catch (error) {
 

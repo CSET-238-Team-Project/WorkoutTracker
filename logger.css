@@ -65,6 +65,8 @@ body {
 }
 
 .timer-pill {
+  cursor:pointer;
+  user-select: none;
   display: flex;
   align-items: center;
   gap: 7px;
@@ -86,6 +88,11 @@ body {
   background: var(--green);
   animation: pulse 1.4s ease-in-out infinite;
 }
+#timerBox {
+  cursor: pointer;
+  user-select: none;
+}
+
 
 @keyframes pulse {
   0%, 100% { opacity: 1; }

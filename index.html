@@ -45,9 +45,7 @@
     /* Profile badge */
     .profile {
       background: #2a2a2a;
-      padding: 12px 18px;
-      border-radius: 12px;
-      font-weight: bold;
+      color: white;
     }
 
     /* Weekly streak container */
@@ -216,6 +214,22 @@
       background: #f8fafc;
       color: #111827;
     }
+
+    .profile-pic
+    {
+      width:40px;
+      height:40px;
+      border-radius:50%;
+      overflow:hidden;
+      border:3px solid #222;
+    }
+
+    .profile-pic img
+    {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
   </style>
 </head>
 
@@ -230,7 +244,11 @@
         <p>Keep your streak alive today.</p>
       </div>
 
-      <div class="profile">GT</div>
+      <div class="profile-pic">
+        <button onclick="location.href='Account.html'">
+          <img src="profile.jpg">
+        </button>
+      </div>
     </div>
 
     <!-- Weekly streak tracker -->
@@ -241,13 +259,13 @@
       </div>
 
       <div class="week">
-        <div class="day complete">Mon</div>
-        <div class="day complete">Tue</div>
-        <div class="day complete">Wed</div>
-        <div class="day complete">Thu</div>
-        <div class="day complete today">Fri</div>
-        <div class="day">Sat</div>
-        <div class="day">Sun</div>
+        <div class="day" id="mon">Mon</div>
+        <div class="day" id="tue">Tue</div>
+        <div class="day" id="wed">Wed</div>
+        <div class="day" id="thu">Thu</div>
+        <div class="day" id="fri">Fri</div>
+        <div class="day" id="sat">Sat</div>
+        <div class="day" id="sun">Sun</div>
       </div>
     </section>
 
@@ -265,7 +283,7 @@
         <h2>Workout Blocks</h2>
 
         <!-- Display-only add button -->
-        <div class="add-button">+</div>
+        <Button class="add-button" onclick="location.href='WorkoutDetail.html'">+</Button>
       </div>
 
       <!-- Push day workout block -->
@@ -360,8 +378,6 @@
     <div class="bottom-button">Settings</div>
   </nav>
 
-  <script>
-    // No JavaScript behavior included.
-  </script>
+  <script src="index.js" type="module"></script>
 </body>
 </html>

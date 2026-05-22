@@ -1,22 +1,70 @@
-// exercise data, will replace with firestore calls
-const exercises = [
-{ name: "Bench press", icon: "ti-barbell", sets: [{ w: 60, r: 10 }, { w: 65, r: 8 }, { w: 65, r: 8 }] },
-{ name: "Overhead press", icon: "ti-arrow-up", sets: [{ w: 40, r: 10 }, { w: 42.5, r: 8 }] },
-{ name: "Tricep pushdown", icon: "ti-arrow-down", sets: [{ w: 25, r: 12 }, { w: 27.5, r: 10 }] },
-];
+const savedWorkout = JSON.parse(localStorage.getItem('activeWorkout')) || null;
 
+const exercises = savedWorkout
+  ? savedWorkout.exercises.map(ex => ({
+      name: ex.name,
+      icon: "ti-barbell",
+      sets: ex.sets.map(s => ({
+        w: s.weight,
+        r: s.reps
+      }))
+  }))
+: [ 
+          { name: "Bench press", icon: "ti-barbell", sets: [{ w: 60, r: 10 }] },
+  ];
 let openSections = new Set([0]);
 let doneSets = {};
 
 // timer, starts right when page opens up
-const startTime = Date.now();
-const timerInterval = setInterval(() => {
-  let totalSecs = Math.floor((Date.now() - startTime) / 1000);
+let startTime = Date.now();
+let pausedTime = 0;
+let pauseStart = 0;
+let isPaused = false;
+let timerInterval;
+let timerDisplay; // declared here so updateTimer() can access it
+
+function updateTimer() {
+  if (isPaused) return;
+
+  const totalSecs = Math.floor((Date.now() - startTime - pausedTime) / 1000);
   const mins = Math.floor(totalSecs / 60);
   const secs = totalSecs % 60;
-  document.getElementById('timerDisplay').textContent =
+
+  timerDisplay.textContent =
     String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
-}, 1000);
+}
+
+// Wait for DOM to be ready before querying elements
+document.addEventListener('DOMContentLoaded', function () {
+  // set title from the data pulled from detail
+  const title = document.querySelector('.workout-title');
+  if(title && savedWorkout)
+    title.textContent = savedWorkout.name;
+
+  timerDisplay = document.getElementById("timerDisplay"); // assigned here
+  const timerBox = document.getElementById("timerBox");
+  const timerDot = document.querySelector(".timer-dot");
+
+  if (!timerDisplay) console.error("timerDisplay element not found");
+  if (!timerBox)     console.error("timerBox element not found");
+  if (!timerDot)     console.error(".timer-dot element not found");
+
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 1000);
+
+  timerBox.addEventListener("click", function () {
+    if (!isPaused) {
+      isPaused = true;
+      pauseStart = Date.now();
+      timerDot.style.backgroundColor = "gray";
+    } else {
+      isPaused = false;
+      pausedTime += Date.now() - pauseStart;
+      timerDot.style.backgroundColor = "#22c55e";
+      updateTimer();
+    }
+  });
+});
 
 // render for all cards and workouts, updates in real time when interacted with
 function render() {
@@ -135,7 +183,7 @@ function hideConfirm()
 function goHome() 
 {
   clearInterval(timerInterval);
-  window.location.href = 'homepage.html';
+  window.location.href = 'index.html';
 }
 
 async function finishWorkout() 
