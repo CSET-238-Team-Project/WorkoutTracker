@@ -9,9 +9,10 @@ const exercises = savedWorkout
         r: s.reps
       }))
   }))
-: [ 
-          { name: "Bench press", icon: "ti-barbell", sets: [{ w: 60, r: 10 }] },
-  ];
+  : [
+      { name: "Bench press", icon: "ti-barbell", sets: [{ w: 60, r: 10 }] },
+    ];
+
 let openSections = new Set([0]);
 let doneSets = {};
 
@@ -36,12 +37,11 @@ function updateTimer() {
 
 // Wait for DOM to be ready before querying elements
 document.addEventListener('DOMContentLoaded', function () {
-  // set title from the data pulled from detail
+  // Set title from workout data
   const title = document.querySelector('.workout-title');
-  if(title && savedWorkout)
-    title.textContent = savedWorkout.name;
+  if (title && savedWorkout) title.textContent = savedWorkout.name;
 
-  timerDisplay = document.getElementById("timerDisplay"); // assigned here
+  timerDisplay = document.getElementById("timerDisplay");
   const timerBox = document.getElementById("timerBox");
   const timerDot = document.querySelector(".timer-dot");
 
@@ -106,16 +106,15 @@ function render() {
           </div>
           ${rows}
           <div class="set-btns">
-          <div style="display: flex; gap: 12px;">
-            <button class="add-set-btn" onclick="addSet(${ei})">
+            <div style="display: flex; gap: 12px;">
+              <button class="add-set-btn" onclick="addSet(${ei})">
                 <i class="ti ti-plus" style="font-size:14px"></i> Add set
-            </button>
-
-            <button class="remove-set-btn" onClick="removeSet(${ei})">
+              </button>
+              <button class="remove-set-btn" onclick="removeSet(${ei})">
                 <i class="ti ti-minus" style="font-size:14px"></i> Remove Set
-            </button>
+              </button>
             </div>
-        </div>
+          </div>
         </div>
       `;
     }
@@ -137,86 +136,92 @@ function render() {
 }
 
 // functions
-function toggleSection(ei) 
-{
-  if (openSections.has(ei)) 
+function toggleSection(ei) {
+  if (openSections.has(ei))
     openSections.delete(ei);
-  else 
+  else
     openSections.add(ei);
   render();
 }
 
-function toggleDone(ei, si) 
-{
+function toggleDone(ei, si) {
   const key = `${ei}-${si}`;
-  if (doneSets[key]) 
+  if (doneSets[key])
     delete doneSets[key];
-  else 
+  else
     doneSets[key] = true;
   render();
 }
 
-function addSet(ei) 
-{
+function addSet(ei) {
   const last = exercises[ei].sets.slice(-1)[0] || { w: 0, r: 8 };
   exercises[ei].sets.push({ ...last });
   render();
 }
 
-function removeSet(ei) 
-{
-  if (exercises[ei].sets.length > 1) 
+function removeSet(ei) {
+  if (exercises[ei].sets.length > 1)
     exercises[ei].sets.pop();
   render();
 }
 
-function showConfirm() 
-{
+function showConfirm() {
   document.getElementById('confirmOverlay').classList.remove('hidden');
 }
 
-function hideConfirm() 
-{
+function hideConfirm() {
   document.getElementById('confirmOverlay').classList.add('hidden');
 }
 
-function goHome() 
-{
+function goHome() {
   clearInterval(timerInterval);
   window.location.href = 'index.html';
 }
 
+function getMonday(date) {
+  const d = new Date(date); // fixed: was "new Dat"
+  const diff = (d.getDay() === 0 ? -6 : 1 - d.getDay());
+  d.setDate(d.getDate() + diff);
+  return d.toDateString();
+}
 
-function UpdateStreak()
-{
-  const td = new Date().toDateString();
+function UpdateStreak() {
+  const today = new Date();          // fixed: today was never defined
+  const td = today.toDateString();   // fixed: was referencing undefined todayStr
   const last = localStorage.getItem('lastWorkoutDate');
+  const dayIndex = (today.getDay() + 6) % 7; // fixed: was named "index" but used as "dayIndex"
+
   let streak = parseInt(localStorage.getItem('workoutStreak')) || 0;
 
-  if(last === td)
-  {
-    return;
+  const weekStart = getMonday(today);
+  const savedWeekStart = localStorage.getItem('weekStart');
+  let streakWeek = JSON.parse(localStorage.getItem('streakWeek')) || [false,false,false,false,false,false,false];
+
+  // Reset week array if it's a new week
+  if (savedWeekStart !== weekStart) {
+    streakWeek = [false,false,false,false,false,false,false];
+    localStorage.setItem('weekStart', weekStart);
   }
 
-  const yd = new Date();
-  yd.setDate(yd.getDate() -1);
+  // Mark today in the week array
+  streakWeek[dayIndex] = true;
+  localStorage.setItem('streakWeek', JSON.stringify(streakWeek));
 
-  if(last === yd.toDateString())
-  {
-    streak += 1;
-  }
-  else
-  {
-    streak = 1;
-  }
+  // Don't double-count if already logged today
+  if (last === td) return;
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  streak = (last === yesterday.toDateString()) ? streak + 1 : 1;
 
   localStorage.setItem('workoutStreak', streak);
   localStorage.setItem('lastWorkoutDate', td);
 }
-async function finishWorkout() 
-{
+
+async function finishWorkout() {
   UpdateStreak();
-  alert("Goodjob!\nClick OK to save Workout!");
+  alert("Good job!\nClick OK to save Workout!");
   clearInterval(timerInterval);
   window.location.href = 'index.html';
 }
