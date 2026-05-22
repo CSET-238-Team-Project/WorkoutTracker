@@ -44,14 +44,12 @@ onAuthStateChanged(auth, (user) => {
     }
 });
 
-// Workout block clicks — outside Firebase, no auth dependency
-document.addEventListener('DOMContentLoaded', () => {
-    document.querySelectorAll('.workout-block').forEach(block => {
-        block.addEventListener('click', function () {
-            const workoutId = this.getAttribute('data-workout');
-            console.log('clicked:', workoutId); // remove this once working
-            localStorage.setItem('selectedWorkout', workoutId);
-            location.href = 'WorkoutDetail.html';
-        });
+// FIX: module scripts are deferred — DOM is already ready when this runs,
+// so DOMContentLoaded has already fired. Just attach the listeners directly.
+document.querySelectorAll('.workout-block').forEach(block => {
+    block.addEventListener('click', function () {
+        const workoutId = this.getAttribute('data-workout');
+        localStorage.setItem('selectedWorkout', workoutId);
+        location.href = 'WorkoutDetail.html';
     });
 });
