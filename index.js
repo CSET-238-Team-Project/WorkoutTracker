@@ -47,4 +47,12 @@ onAuthStateChanged(auth, (user) =>
     for (let i = 0; i < streakWeek.length; i++) {
         if (streakWeek[i]) streakList[i].classList.add("complete");
     }
+
+    document.querySelectorAll('.workout-block').forEach(block => {
+    block.addEventListener('click', function() {
+        const workoutId = this.getAttribute('data-workout');
+        localStorage.setItem('selectedWorkout', workoutId);
+        location.href = 'WorkoutDetail.html';
+    });
+});
 });

@@ -1,65 +1,115 @@
 // Workout Data
-var workout = {
-    name: "Upper Day",
+const selectedWorkout = localStorage.getItem('selectedWorkout');
+if(selectedWorkout === 'push')
+{
+    var workout = {
+    name: "Push Day",
     exercises: [
     {
-        name: "Incline Bench Press (Smith Machine)",
+        name: "Bench Press",
         sets: [
             { reps: 8, weight: 135 },
             { reps: 8, weight: 135 }
         ]
     },
     {
-        name: "Chest Fly (Machine)",
+        name: "Shoulder Press",
         sets: [
             { reps: 8, weight: 120 },
             { reps: 8, weight: 120 }
         ]
     },
     {
-        name: "Single Arm Lateral Raise (Cable)",
+        name: "Tricep Dips",
         sets: [
             { reps: 8, weight: 15 },
             { reps: 8, weight: 15 }
         ]
     },
     {
-        name: "Seated Shoulder Press (Smith Machine)",
+        name: "Incline Dumbbell Press",
         sets: [
             { reps: 8, weight: 95 },
             { reps: 8, weight: 95 }
         ]
+    }
+        ]
+    };
+}
+
+else if(selectedWorkout === 'pull')
+{
+    var workout = {
+    name: "Pull Day",
+    exercises: [
+    {
+        name: "Pull-Ups",
+        sets: [
+            { reps: 8, weight: 135 },
+            { reps: 8, weight: 135 }
+        ]
     },
     {
-        name: "Lat Pulldown (Cable)",
+        name: "Barbell Rows",
         sets: [
             { reps: 8, weight: 120 },
             { reps: 8, weight: 120 }
         ]
     },
     {
-        name: "Seated Cable Row - V Grip (Cable)",
+        name: "Bicep Curls",
         sets: [
-            { reps: 8, weight: 90 },
-            { reps: 8, weight: 90 }
+            { reps: 8, weight: 15 },
+            { reps: 8, weight: 15 }
         ]
     },
     {
-        name: "Tricep Pushdown (Cable)",
+        name: "Lat Pulldown",
         sets: [
-            { reps: 8, weight: 55 },
-            { reps: 8, weight: 55 }
-        ]
-    },
-    {
-        name: "Preacher Curl (Machine)",
-        sets: [
-            { reps: 8, weight: 70 },
-            { reps: 8, weight: 70 }
+            { reps: 8, weight: 95 },
+            { reps: 8, weight: 95 }
         ]
     }
-    ]
-};
+        ]
+    };
+}
+
+else if(selectedWorkout === 'legs')
+{
+    var workout = {
+    name: "Leg Day",
+    exercises: [
+    {
+        name: "Squats",
+        sets: [
+            { reps: 8, weight: 135 },
+            { reps: 8, weight: 135 }
+        ]
+    },
+    {
+        name: "Romanian Deadlifts",
+        sets: [
+            { reps: 8, weight: 120 },
+            { reps: 8, weight: 120 }
+        ]
+    },
+    {
+        name: "Leg Press",
+        sets: [
+            { reps: 8, weight: 15 },
+            { reps: 8, weight: 15 }
+        ]
+    },
+    {
+        name: "Calf Raises",
+        sets: [
+            { reps: 8, weight: 95 },
+            { reps: 8, weight: 95 }
+        ]
+    }
+        ]
+    };
+}
 
 // Set Title
 document.getElementById("workout-title").textContent = workout.name;
