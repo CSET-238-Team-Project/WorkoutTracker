@@ -1,0 +1,302 @@
+@import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
+
+:root {
+  --bg:             #0e0e10;
+  --bg-secondary:   #18181b;
+  --bg-card:        #1c1c1f;
+  --bg-hover:       #222226;
+  --text:           #f0f0f0;
+  --text-secondary: #888892;
+  --text-tertiary:  #55555f;
+  --border:         rgba(255,255,255,0.07);
+  --border-hover:   rgba(255,255,255,0.14);
+  --accent:         #4f8ef7;
+  --green:          #22c55e;
+  --radius-md:      8px;
+  --radius-lg:      12px;
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'DM Sans', -apple-system, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  min-height: 100vh;
+  padding-bottom: 80px;
+}
+
+/* ── Main wrapper ────────────────────────────────────────────────────────── */
+.main {
+  max-width: 640px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+}
+
+/* ── Top bar ─────────────────────────────────────────────────────────────── */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1.75rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 1px solid var(--border);
+}
+
+.topbar h1 {
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.topbar p {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 3px;
+}
+
+.profile-pic {
+  width: 34px;
+  height: 34px;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  border: 1px solid var(--border-hover);
+  background: var(--bg-secondary);
+  flex-shrink: 0;
+}
+
+.profile-pic button {
+  width: 100%;
+  height: 100%;
+  padding: 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.profile-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── Streak card ─────────────────────────────────────────────────────────── */
+.streak-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  margin-bottom: 8px;
+  transition: border-color 0.15s;
+}
+.streak-card:hover { border-color: var(--border-hover); }
+
+.streak-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 14px;
+}
+
+.streak-header h2 {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.streak-count {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+/* ── Week day pills ──────────────────────────────────────────────────────── */
+.week {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 6px;
+}
+
+.day {
+  text-align: center;
+  padding: 10px 0;
+  border-radius: var(--radius-md);
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  transition: background 0.15s, border-color 0.15s, color 0.15s;
+}
+
+.day.complete {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+}
+
+.day.today {
+  border-color: var(--accent);
+  color: var(--accent);
+}
+
+.day.complete.today {
+  background: var(--green);
+  border-color: var(--green);
+  color: #fff;
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── Stats card ──────────────────────────────────────────────────────────── */
+.stats {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 8px;
+  margin-bottom: 8px;
+}
+
+.stat-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+  transition: border-color 0.15s;
+}
+.stat-card:hover { border-color: var(--border-hover); }
+
+.stat-card h3 {
+  font-size: 11px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  text-transform: uppercase;
+  letter-spacing: 0.07em;
+  margin-bottom: 8px;
+}
+
+.stat-card p {
+  font-size: 28px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text);
+}
+
+/* ── Workout panel ───────────────────────────────────────────────────────── */
+.workout-panel {
+  background: var(--bg-card);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 16px;
+}
+
+.panel-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.panel-header h2 {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.add-button {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  background: var(--bg-secondary);
+  border: 1px solid var(--border-hover);
+  color: var(--text-secondary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 18px;
+  font-weight: 500;
+  cursor: pointer;
+  line-height: 1;
+  transition: background 0.15s, color 0.15s;
+}
+.add-button:hover { background: var(--bg-hover); color: var(--text); }
+
+/* ── Workout blocks ──────────────────────────────────────────────────────── */
+.workout-block {
+  background: var(--bg-secondary);
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  padding: 14px 16px;
+  margin-bottom: 8px;
+  transition: border-color 0.15s;
+  cursor: pointer;
+}
+.workout-block:hover { border-color: var(--border-hover); }
+.workout-block:last-child { margin-bottom: 0; }
+
+.block-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.block-header h3 {
+  font-size: 14px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--text);
+}
+
+.block-header span {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+.exercise-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 8px 0;
+  border-top: 1px solid var(--border);
+}
+
+.exercise-row span:first-child {
+  font-size: 13px;
+  color: var(--text-secondary);
+}
+
+.exercise-row span:last-child {
+  font-size: 12px;
+  color: var(--text-tertiary);
+}
+
+/* ── Bottom nav ──────────────────────────────────────────────────────────── */
+.bottom-nav {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  background: var(--bg-secondary);
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-around;
+  padding: 12px 0;
+}
+
+.bottom-button {
+  padding: 8px 24px;
+  border-radius: 999px;
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: background 0.15s, color 0.15s;
+}
+
+.bottom-button.active {
+  background: var(--bg-hover);
+  color: var(--text);
+}
