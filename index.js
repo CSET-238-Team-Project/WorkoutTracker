@@ -14,22 +14,23 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-onAuthStateChanged(auth, (user) => {
+onAuthStateChanged(auth, (user) => 
+    {
     if (!user) {
         window.location.href = "signup.html";
         return;
     }
 
-    // --- Streak from localStorage ---
+    // grab streak from local storage, logger.js
     const streakCount = parseInt(localStorage.getItem('workoutStreak')) || 0;
     const streakWeek = JSON.parse(localStorage.getItem('streakWeek')) || [false,false,false,false,false,false,false];
 
-    // Update streak text in both places
+    // update streak text
     document.querySelector('.streak-count').textContent = `${streakCount} day streak`;
     document.querySelector('.stat-card p').textContent = `${streakCount} Days`;
 
-    // Mark today's day pill
-    const todayIndex = (new Date().getDay() + 6) % 7; // Mon=0, Sun=6
+    // mark today's day streak
+    const todayIndex = (new Date().getDay() + 6) % 7;
     const streakList = [
         document.getElementById("mon"),
         document.getElementById("tue"),
@@ -42,7 +43,7 @@ onAuthStateChanged(auth, (user) => {
 
     streakList[todayIndex].classList.add("today");
 
-    // Light up completed days
+    // highlight the completed days
     for (let i = 0; i < streakWeek.length; i++) {
         if (streakWeek[i]) streakList[i].classList.add("complete");
     }
