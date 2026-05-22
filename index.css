@@ -1,19 +1,19 @@
 @import url('https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600&display=swap');
 
 :root {
-  --bg:             #0e0e10;
-  --bg-secondary:   #18181b;
-  --bg-card:        #1c1c1f;
-  --bg-hover:       #222226;
-  --text:           #f0f0f0;
-  --text-secondary: #888892;
-  --text-tertiary:  #55555f;
-  --border:         rgba(255,255,255,0.07);
-  --border-hover:   rgba(255,255,255,0.14);
-  --accent:         #4f8ef7;
+  --bg:             #0A0A0A;
+  --bg-secondary:   #1A1A1A;
+  --bg-card:        #1A1A1A;
+  --bg-hover:       #222222;
+  --text:           #FFFFFF;
+  --text-secondary: #8A8A8A;
+  --text-tertiary:  #5A5A5A;
+  --border:         #2A2A2A;
+  --border-hover:   #3A3A3A;
+  --accent:         #60A5FA;
   --green:          #22c55e;
-  --radius-md:      8px;
-  --radius-lg:      12px;
+  --radius-md:      10px;
+  --radius-lg:      14px;
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -24,29 +24,33 @@ body {
   color: var(--text);
   min-height: 100vh;
   padding-bottom: 80px;
+  display: flex;
+  justify-content: center;
 }
 
 /* ── Main wrapper ────────────────────────────────────────────────────────── */
 .main {
-  max-width: 640px;
-  margin: 0 auto;
-  padding: 1.5rem 1rem;
+  width: 100%;
+  max-width: 480px;
+  padding: 0 20px;
 }
 
 /* ── Top bar ─────────────────────────────────────────────────────────────── */
 .topbar {
+  position: sticky;
+  top: 0;
+  z-index: 10;
+  background: var(--bg);
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 1.75rem;
-  padding-bottom: 1.25rem;
-  border-bottom: 1px solid var(--border);
+  padding: 16px 0 12px;
+  margin-bottom: 16px;
 }
 
 .topbar h1 {
-  font-size: 17px;
+  font-size: 20px;
   font-weight: 600;
-  letter-spacing: -0.01em;
   color: var(--text);
 }
 
@@ -57,11 +61,11 @@ body {
 }
 
 .profile-pic {
-  width: 34px;
-  height: 34px;
-  border-radius: var(--radius-md);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   overflow: hidden;
-  border: 1px solid var(--border-hover);
+  border: 1px solid var(--border);
   background: var(--bg-secondary);
   flex-shrink: 0;
 }
@@ -87,10 +91,8 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 16px;
-  margin-bottom: 8px;
-  transition: border-color 0.15s;
+  margin-bottom: 10px;
 }
-.streak-card:hover { border-color: var(--border-hover); }
 
 .streak-header {
   display: flex;
@@ -100,15 +102,14 @@ body {
 }
 
 .streak-header h2 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: -0.01em;
   color: var(--text);
 }
 
 .streak-count {
   font-size: 13px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-secondary);
 }
 
@@ -122,11 +123,11 @@ body {
 .day {
   text-align: center;
   padding: 10px 0;
-  border-radius: var(--radius-md);
-  background: var(--bg-secondary);
+  border-radius: 10px;
+  background: var(--bg);
   border: 1px solid var(--border);
-  font-size: 12px;
-  font-weight: 500;
+  font-size: 11px;
+  font-weight: 600;
   color: var(--text-tertiary);
   transition: background 0.15s, border-color 0.15s, color 0.15s;
 }
@@ -152,10 +153,7 @@ body {
 
 /* ── Stats card ──────────────────────────────────────────────────────────── */
 .stats {
-  display: grid;
-  grid-template-columns: 1fr;
-  gap: 8px;
-  margin-bottom: 8px;
+  margin-bottom: 10px;
 }
 
 .stat-card {
@@ -163,13 +161,11 @@ body {
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
   padding: 16px;
-  transition: border-color 0.15s;
 }
-.stat-card:hover { border-color: var(--border-hover); }
 
 .stat-card h3 {
   font-size: 11px;
-  font-weight: 500;
+  font-weight: 600;
   color: var(--text-tertiary);
   text-transform: uppercase;
   letter-spacing: 0.07em;
@@ -179,7 +175,6 @@ body {
 .stat-card p {
   font-size: 28px;
   font-weight: 600;
-  letter-spacing: -0.02em;
   color: var(--text);
 }
 
@@ -199,15 +194,14 @@ body {
 }
 
 .panel-header h2 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: -0.01em;
   color: var(--text);
 }
 
 .add-button {
-  width: 28px;
-  height: 28px;
+  width: 30px;
+  height: 30px;
   border-radius: 50%;
   background: var(--bg-secondary);
   border: 1px solid var(--border-hover);
@@ -215,8 +209,8 @@ body {
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 20px;
+  font-weight: 400;
   cursor: pointer;
   line-height: 1;
   transition: background 0.15s, color 0.15s;
@@ -225,13 +219,13 @@ body {
 
 /* ── Workout blocks ──────────────────────────────────────────────────────── */
 .workout-block {
-  background: var(--bg-secondary);
+  background: var(--bg);
   border: 1px solid var(--border);
   border-radius: var(--radius-lg);
-  padding: 14px 16px;
-  margin-bottom: 8px;
-  transition: border-color 0.15s;
+  padding: 16px;
+  margin-bottom: 10px;
   cursor: pointer;
+  transition: border-color 0.15s;
 }
 .workout-block:hover { border-color: var(--border-hover); }
 .workout-block:last-child { margin-bottom: 0; }
@@ -240,19 +234,18 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
 }
 
 .block-header h3 {
-  font-size: 14px;
+  font-size: 15px;
   font-weight: 600;
-  letter-spacing: -0.01em;
   color: var(--text);
 }
 
 .block-header span {
-  font-size: 12px;
-  color: var(--text-tertiary);
+  font-size: 13px;
+  color: var(--text-secondary);
 }
 
 .exercise-row {
@@ -264,13 +257,13 @@ body {
 }
 
 .exercise-row span:first-child {
-  font-size: 13px;
-  color: var(--text-secondary);
+  font-size: 14px;
+  color: var(--text);
 }
 
 .exercise-row span:last-child {
-  font-size: 12px;
-  color: var(--text-tertiary);
+  font-size: 13px;
+  color: var(--text-secondary);
 }
 
 /* ── Bottom nav ──────────────────────────────────────────────────────────── */
@@ -283,17 +276,18 @@ body {
   border-top: 1px solid var(--border);
   display: flex;
   justify-content: space-around;
-  padding: 12px 0;
+  padding: 14px 0 24px;
 }
 
 .bottom-button {
-  padding: 8px 24px;
+  padding: 10px 28px;
   border-radius: 999px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-tertiary);
+  font-size: 14px;
+  font-weight: 600;
+  color: var(--text-secondary);
   cursor: pointer;
   transition: background 0.15s, color 0.15s;
+  font-family: inherit;
 }
 
 .bottom-button.active {
