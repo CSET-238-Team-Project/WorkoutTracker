@@ -20,12 +20,15 @@ onAuthStateChanged(auth, (user) => {
         return;
     }
 
+    // updates streaks based on the logger page's count
     const streakCount = parseInt(localStorage.getItem('workoutStreak')) || 0;
     const streakWeek = JSON.parse(localStorage.getItem('streakWeek')) || [false,false,false,false,false,false,false];
 
+    // updates the streak text... do not know how well it works though
     document.querySelector('.streak-count').textContent = `${streakCount} day streak`;
     document.querySelector('.stat-card p').textContent = `${streakCount} Days`;
 
+    // updates the streak day
     const todayIndex = (new Date().getDay() + 6) % 7;
     const streakList = [
         document.getElementById("mon"),
@@ -39,13 +42,13 @@ onAuthStateChanged(auth, (user) => {
 
     streakList[todayIndex].classList.add("today");
 
+    // populates the weekly counter
     for (let i = 0; i < streakWeek.length; i++) {
         if (streakWeek[i]) streakList[i].classList.add("complete");
     }
 });
 
-// FIX: module scripts are deferred — DOM is already ready when this runs,
-// so DOMContentLoaded has already fired. Just attach the listeners directly.
+// this will pass specific workouts to the detail page when pull push or legs is clicked
 document.querySelectorAll('.workout-block').forEach(block => {
     block.addEventListener('click', function () {
         const workoutId = this.getAttribute('data-workout');

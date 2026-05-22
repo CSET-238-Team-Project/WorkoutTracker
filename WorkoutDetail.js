@@ -1,5 +1,5 @@
 // Workout Data
-const selectedWorkout = localStorage.getItem('selectedWorkout');
+const selectedWorkout = localStorage.getItem('selectedWorkout'); // pulls from index.js
 if(selectedWorkout === 'push')
 {
     var workout = {
@@ -8,29 +8,35 @@ if(selectedWorkout === 'push')
     {
         name: "Bench Press",
         sets: [
-            { reps: 8, weight: 135 },
-            { reps: 8, weight: 135 }
+            { reps: 10, weight: 135 },
+            { reps: 10, weight: 135 },
+            { reps: 10, weight: 135 },
+            { reps: 10, weight: 135 }
         ]
     },
     {
         name: "Shoulder Press",
         sets: [
-            { reps: 8, weight: 120 },
-            { reps: 8, weight: 120 }
+            { reps: 12, weight: 120 },
+            { reps: 12, weight: 120 },
+            { reps: 12, weight: 120 },
+            { reps: 12, weight: 120 }
         ]
     },
     {
         name: "Tricep Dips",
         sets: [
-            { reps: 8, weight: 15 },
-            { reps: 8, weight: 15 }
+            { reps: 15, weight: 15 },
+            { reps: 15, weight: 15 },
+            { reps: 15, weight: 15 }
         ]
     },
     {
         name: "Incline Dumbbell Press",
         sets: [
-            { reps: 8, weight: 95 },
-            { reps: 8, weight: 95 }
+            { reps: 10, weight: 95 },
+            { reps: 10, weight: 95 },
+            { reps: 10, weight: 95 }
         ]
     }
         ]
@@ -45,29 +51,35 @@ else if(selectedWorkout === 'pull')
     {
         name: "Pull-Ups",
         sets: [
-            { reps: 8, weight: 135 },
-            { reps: 8, weight: 135 }
+            { reps: 8, weight: 45 },
+            { reps: 8, weight: 45 },
+            { reps: 8, weight: 45 },
+            { reps: 8, weight: 45 }
         ]
     },
     {
         name: "Barbell Rows",
         sets: [
-            { reps: 8, weight: 120 },
-            { reps: 8, weight: 120 }
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 }
         ]
     },
     {
         name: "Bicep Curls",
         sets: [
-            { reps: 8, weight: 15 },
-            { reps: 8, weight: 15 }
+            { reps: 12, weight: 15 },
+            { reps: 12, weight: 15 },
+            { reps: 12, weight: 15 }
         ]
     },
     {
         name: "Lat Pulldown",
         sets: [
-            { reps: 8, weight: 95 },
-            { reps: 8, weight: 95 }
+            { reps: 12, weight: 100 },
+            { reps: 12, weight: 100 },
+            { reps: 12, weight: 100 }
         ]
     }
         ]
@@ -83,28 +95,37 @@ else if(selectedWorkout === 'legs')
         name: "Squats",
         sets: [
             { reps: 8, weight: 135 },
+            { reps: 8, weight: 135 },
+            { reps: 8, weight: 135 },
+            { reps: 8, weight: 135 },
             { reps: 8, weight: 135 }
         ]
     },
     {
         name: "Romanian Deadlifts",
         sets: [
-            { reps: 8, weight: 120 },
-            { reps: 8, weight: 120 }
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 }
         ]
     },
     {
         name: "Leg Press",
         sets: [
-            { reps: 8, weight: 15 },
-            { reps: 8, weight: 15 }
+            { reps: 12, weight: 15 },
+            { reps: 12, weight: 15 },
+            { reps: 12, weight: 15 },
+            { reps: 12, weight: 15 }
         ]
     },
     {
         name: "Calf Raises",
         sets: [
-            { reps: 8, weight: 95 },
-            { reps: 8, weight: 95 }
+            { reps: 15, weight: 95 },
+            { reps: 15, weight: 95 },
+            { reps: 15, weight: 95 },
+            { reps: 15, weight: 95 }
         ]
     }
         ]

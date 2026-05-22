@@ -186,10 +186,10 @@ function getMonday(date) {
 }
 
 function UpdateStreak() {
-  const today = new Date();          // fixed: today was never defined
-  const td = today.toDateString();   // fixed: was referencing undefined todayStr
+  const today = new Date();
+  const td = today.toDateString();
   const last = localStorage.getItem('lastWorkoutDate');
-  const dayIndex = (today.getDay() + 6) % 7; // fixed: was named "index" but used as "dayIndex"
+  const dayIndex = (today.getDay() + 6) % 7;
 
   let streak = parseInt(localStorage.getItem('workoutStreak')) || 0;
 
@@ -197,17 +197,17 @@ function UpdateStreak() {
   const savedWeekStart = localStorage.getItem('weekStart');
   let streakWeek = JSON.parse(localStorage.getItem('streakWeek')) || [false,false,false,false,false,false,false];
 
-  // Reset week array if it's a new week
+  // reset on new week
   if (savedWeekStart !== weekStart) {
     streakWeek = [false,false,false,false,false,false,false];
     localStorage.setItem('weekStart', weekStart);
   }
 
-  // Mark today in the week array
+  // mark today in the array to keep track of weekly streak
   streakWeek[dayIndex] = true;
   localStorage.setItem('streakWeek', JSON.stringify(streakWeek));
 
-  // Don't double-count if already logged today
+  // dont double count streak if already logged today
   if (last === td) return;
 
   const yesterday = new Date();
