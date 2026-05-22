@@ -14,22 +14,18 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 
-onAuthStateChanged(auth, (user) => 
-    {
+onAuthStateChanged(auth, (user) => {
     if (!user) {
         window.location.href = "signup.html";
         return;
     }
 
-    // grab streak from local storage, logger.js
     const streakCount = parseInt(localStorage.getItem('workoutStreak')) || 0;
     const streakWeek = JSON.parse(localStorage.getItem('streakWeek')) || [false,false,false,false,false,false,false];
 
-    // update streak text
     document.querySelector('.streak-count').textContent = `${streakCount} day streak`;
     document.querySelector('.stat-card p').textContent = `${streakCount} Days`;
 
-    // mark today's day streak
     const todayIndex = (new Date().getDay() + 6) % 7;
     const streakList = [
         document.getElementById("mon"),
@@ -43,16 +39,19 @@ onAuthStateChanged(auth, (user) =>
 
     streakList[todayIndex].classList.add("today");
 
-    // highlight the completed days
     for (let i = 0; i < streakWeek.length; i++) {
         if (streakWeek[i]) streakList[i].classList.add("complete");
     }
-
-    document.querySelectorAll('.workout-block').forEach(block => {
-    block.addEventListener('click', function() {
-        const workoutId = this.getAttribute('data-workout');
-        localStorage.setItem('selectedWorkout', workoutId);
-        location.href = 'WorkoutDetail.html';
-    });
 });
+
+// Workout block clicks — outside Firebase, no auth dependency
+document.addEventListener('DOMContentLoaded', () => {
+    document.querySelectorAll('.workout-block').forEach(block => {
+        block.addEventListener('click', function () {
+            const workoutId = this.getAttribute('data-workout');
+            console.log('clicked:', workoutId); // remove this once working
+            localStorage.setItem('selectedWorkout', workoutId);
+            location.href = 'WorkoutDetail.html';
+        });
+    });
 });
