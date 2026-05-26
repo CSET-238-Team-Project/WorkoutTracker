@@ -1,0 +1,229 @@
+const savedWorkout = JSON.parse(localStorage.getItem('activeWorkout')) || null;
+
+const exercises = savedWorkout
+  ? savedWorkout.exercises.map(ex => ({
+      name: ex.name,
+      icon: "ti-barbell",
+      sets: ex.sets.map(s => ({
+        w: s.weight,
+        r: s.reps
+      }))
+  }))
+  : [
+      { name: "Bench press", icon: "ti-barbell", sets: [{ w: 60, r: 10 }] },
+    ];
+
+let openSections = new Set([0]);
+let doneSets = {};
+
+// timer, starts right when page opens up
+let startTime = Date.now();
+let pausedTime = 0;
+let pauseStart = 0;
+let isPaused = false;
+let timerInterval;
+let timerDisplay; // declared here so updateTimer() can access it
+
+function updateTimer() {
+  if (isPaused) return;
+
+  const totalSecs = Math.floor((Date.now() - startTime - pausedTime) / 1000);
+  const mins = Math.floor(totalSecs / 60);
+  const secs = totalSecs % 60;
+
+  timerDisplay.textContent =
+    String(mins).padStart(2, '0') + ':' + String(secs).padStart(2, '0');
+}
+
+// Wait for DOM to be ready before querying elements
+document.addEventListener('DOMContentLoaded', function () {
+  // Set title from workout data
+  const title = document.querySelector('.workout-title');
+  if (title && savedWorkout) title.textContent = savedWorkout.name;
+
+  timerDisplay = document.getElementById("timerDisplay");
+  const timerBox = document.getElementById("timerBox");
+  const timerDot = document.querySelector(".timer-dot");
+
+  if (!timerDisplay) console.error("timerDisplay element not found");
+  if (!timerBox)     console.error("timerBox element not found");
+  if (!timerDot)     console.error(".timer-dot element not found");
+
+  updateTimer();
+  timerInterval = setInterval(updateTimer, 1000);
+
+  timerBox.addEventListener("click", function () {
+    if (!isPaused) {
+      isPaused = true;
+      pauseStart = Date.now();
+      timerDot.style.backgroundColor = "gray";
+    } else {
+      isPaused = false;
+      pausedTime += Date.now() - pauseStart;
+      timerDot.style.backgroundColor = "#22c55e";
+      updateTimer();
+    }
+  });
+});
+
+// render for all cards and workouts, updates in real time when interacted with
+function render() {
+  const list = document.getElementById('exerciseList');
+  list.innerHTML = '';
+
+  exercises.forEach((ex, ei) => {
+    const isOpen = openSections.has(ei);
+    const doneCount = ex.sets.filter((_, si) => doneSets[`${ei}-${si}`]).length;
+
+    const card = document.createElement('div');
+    card.className = 'exercise-card';
+
+    let setsHTML = '';
+    if (isOpen) {
+      const rows = ex.sets.map((s, si) => `
+        <div class="set-row">
+          <span class="set-num">${si + 1}</span>
+          <input class="set-input" type="number" value="${s.w}" step="0.5" min="0"
+            onchange="exercises[${ei}].sets[${si}].w = parseFloat(this.value) || 0">
+          <input class="set-input" type="number" value="${s.r}" step="1" min="0"
+            onchange="exercises[${ei}].sets[${si}].r = parseInt(this.value) || 0">
+          <input class="set-input" type="number" value="90" step="5" min="0">
+          <button class="check-btn ${doneSets[ei + '-' + si] ? 'done' : ''}"
+            onclick="toggleDone(${ei}, ${si})">
+            <i class="ti ti-check"></i>
+          </button>
+        </div>
+      `).join('');
+
+      setsHTML = `
+        <div class="sets-section">
+          <div class="sets-head">
+            <span>#</span>
+            <span>Weight (kg)</span>
+            <span>Reps</span>
+            <span>Rest (s)</span>
+            <span></span>
+          </div>
+          ${rows}
+          <div class="set-btns">
+            <div style="display: flex; gap: 12px;">
+              <button class="add-set-btn" onclick="addSet(${ei})">
+                <i class="ti ti-plus" style="font-size:14px"></i> Add set
+              </button>
+              <button class="remove-set-btn" onclick="removeSet(${ei})">
+                <i class="ti ti-minus" style="font-size:14px"></i> Remove Set
+              </button>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    card.innerHTML = `
+      <div class="exercise-header" onclick="toggleSection(${ei})">
+        <div class="ex-icon"><i class="ti ${ex.icon}"></i></div>
+        <div style="flex:1">
+          <div class="ex-name">${ex.name}</div>
+          <div class="ex-summary">${doneCount} / ${ex.sets.length} sets done</div>
+        </div>
+        <i class="ti ti-chevron-down ex-chevron ${isOpen ? 'open' : ''}"></i>
+      </div>
+      ${setsHTML}
+    `;
+
+    list.appendChild(card);
+  });
+}
+
+// functions
+function toggleSection(ei) {
+  if (openSections.has(ei))
+    openSections.delete(ei);
+  else
+    openSections.add(ei);
+  render();
+}
+
+function toggleDone(ei, si) {
+  const key = `${ei}-${si}`;
+  if (doneSets[key])
+    delete doneSets[key];
+  else
+    doneSets[key] = true;
+  render();
+}
+
+function addSet(ei) {
+  const last = exercises[ei].sets.slice(-1)[0] || { w: 0, r: 8 };
+  exercises[ei].sets.push({ ...last });
+  render();
+}
+
+function removeSet(ei) {
+  if (exercises[ei].sets.length > 1)
+    exercises[ei].sets.pop();
+  render();
+}
+
+function showConfirm() {
+  document.getElementById('confirmOverlay').classList.remove('hidden');
+}
+
+function hideConfirm() {
+  document.getElementById('confirmOverlay').classList.add('hidden');
+}
+
+function goHome() {
+  clearInterval(timerInterval);
+  window.location.href = 'index.html';
+}
+
+function getMonday(date) {
+  const d = new Date(date); // fixed: was "new Dat"
+  const diff = (d.getDay() === 0 ? -6 : 1 - d.getDay());
+  d.setDate(d.getDate() + diff);
+  return d.toDateString();
+}
+
+function UpdateStreak() {
+  const today = new Date();
+  const td = today.toDateString();
+  const last = localStorage.getItem('lastWorkoutDate');
+  const dayIndex = (today.getDay() + 6) % 7;
+
+  let streak = parseInt(localStorage.getItem('workoutStreak')) || 0;
+
+  const weekStart = getMonday(today);
+  const savedWeekStart = localStorage.getItem('weekStart');
+  let streakWeek = JSON.parse(localStorage.getItem('streakWeek')) || [false,false,false,false,false,false,false];
+
+  // reset on new week
+  if (savedWeekStart !== weekStart) {
+    streakWeek = [false,false,false,false,false,false,false];
+    localStorage.setItem('weekStart', weekStart);
+  }
+
+  // mark today in the array to keep track of weekly streak
+  streakWeek[dayIndex] = true;
+  localStorage.setItem('streakWeek', JSON.stringify(streakWeek));
+
+  // dont double count streak if already logged today
+  if (last === td) return;
+
+  const yesterday = new Date();
+  yesterday.setDate(yesterday.getDate() - 1);
+
+  streak = (last === yesterday.toDateString()) ? streak + 1 : 1;
+
+  localStorage.setItem('workoutStreak', streak);
+  localStorage.setItem('lastWorkoutDate', td);
+}
+
+async function finishWorkout() {
+  UpdateStreak();
+  alert("Good job!\nClick OK to save Workout!");
+  clearInterval(timerInterval);
+  window.location.href = 'index.html';
+}
+
+render();

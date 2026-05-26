@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Workout Tracker</title>
+  <link rel="stylesheet" href="index.css" />
+</head>
+
+<body>
+  <main class="main">
+
+    <!-- Header -->
+    <div class="topbar">
+      <div>
+        <h1>Workout Tracker</h1>
+        <p>Keep your streak alive today.</p>
+      </div>
+      <div class="profile-pic">
+        <button onclick="location.href='Account.html'">
+          <img src="profile.jpg" alt="Profile" />
+        </button>
+      </div>
+    </div>
+
+    <!-- Weekly streak tracker -->
+    <section class="streak-card">
+      <div class="streak-header">
+        <h2>Weekly Streak</h2>
+        <p class="streak-count">0 day streak</p>
+      </div>
+      <div class="week">
+        <div class="day" id="mon">Mon</div>
+        <div class="day" id="tue">Tue</div>
+        <div class="day" id="wed">Wed</div>
+        <div class="day" id="thu">Thu</div>
+        <div class="day" id="fri">Fri</div>
+        <div class="day" id="sat">Sat</div>
+        <div class="day" id="sun">Sun</div>
+      </div>
+    </section>
+
+    <!-- Streak count card -->
+    <section class="stats">
+      <div class="stat-card">
+        <h3>Current Streak</h3>
+        <p>0 Days</p>
+      </div>
+    </section>
+
+    <!-- Workout blocks -->
+    <section class="workout-panel">
+      <div class="panel-header">
+        <h2>Workout Blocks</h2>
+        <button class="add-button" onclick="location.href='WorkoutDetail.html'">+</button>
+      </div>
+
+      <div class="workout-block" data-workout="push">
+        <div class="block-header">
+          <h3>Push Day</h3>
+          <span>4 exercises</span>
+        </div>
+        <div class="exercise-row"><span>Bench Press</span><span>4 sets × 10 reps</span></div>
+        <div class="exercise-row"><span>Shoulder Press</span><span>4 sets × 12 reps</span></div>
+        <div class="exercise-row"><span>Tricep Dips</span><span>3 sets × 15 reps</span></div>
+        <div class="exercise-row"><span>Incline Dumbbell Press</span><span>3 sets × 10 reps</span></div>
+      </div>
+
+      <div class="workout-block" data-workout="pull">
+        <div class="block-header">
+          <h3>Pull Day</h3>
+          <span>4 exercises</span>
+        </div>
+        <div class="exercise-row"><span>Pull-Ups</span><span>4 sets × 8 reps</span></div>
+        <div class="exercise-row"><span>Barbell Rows</span><span>4 sets × 10 reps</span></div>
+        <div class="exercise-row"><span>Bicep Curls</span><span>3 sets × 12 reps</span></div>
+        <div class="exercise-row"><span>Lat Pulldown</span><span>3 sets × 12 reps</span></div>
+      </div>
+
+      <div class="workout-block" data-workout="legs">
+        <div class="block-header">
+          <h3>Leg Day</h3>
+          <span>4 exercises</span>
+        </div>
+        <div class="exercise-row"><span>Squats</span><span>5 sets × 8 reps</span></div>
+        <div class="exercise-row"><span>Romanian Deadlift</span><span>4 sets × 10 reps</span></div>
+        <div class="exercise-row"><span>Leg Press</span><span>4 sets × 12 reps</span></div>
+        <div class="exercise-row"><span>Calf Raises</span><span>4 sets × 15 reps</span></div>
+      </div>
+    </section>
+
+  </main>
+
+  <!-- Bottom nav -->
+  <nav class="bottom-nav">
+    <div class="bottom-button active">Home</div>
+    <div class="bottom-button">Settings</div>
+  </nav>
+
+  <script src="index.js" type="module"></script>
+</body>
+</html>
