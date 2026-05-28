@@ -131,8 +131,6 @@ else if(selectedWorkout === 'legs')
         ]
     };
 }
-
-/*
 else (selectedWorkout !== 'push' 
     && selectedWorkout !== 'pull' 
     && selectedWorkout !== 'legs')
@@ -140,11 +138,10 @@ else (selectedWorkout !== 'push'
         var workout = {
             name: "Custom Workout", 
             exercises: [
-                    // leave this blank for custom exercises
+
             ]
         };
     }
-*/
 
 // Set Title
 document.getElementById("workout-title").textContent = workout.name;
