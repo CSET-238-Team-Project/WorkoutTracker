@@ -1,65 +1,214 @@
-<html>
-    <head>
-        <title>Login</title>
-        <style>
-            /* css for login page here */
-        </style>
-    </head>
-    <body>
-        <input type="email" id="email" placeholder="Email">
-        <input type="password" id="password" placeholder="Password">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 
-        <button id="loginBtn">Login</button>
-        <script type="module">
-            import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
+<title>Login</title>
 
-            import {
-                getAuth,
-                signInWithEmailAndPassword
-            } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
+<style>
+    *{
+        margin:0;
+        padding:0;
+        box-sizing:border-box;
+        font-family: Arial, Helvetica, sans-serif;
+    }
 
-            import {
-                getFirestore,
-                doc,
-                setDoc
-            } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+    body{
+        background:#000;
+        color:white;
+        min-height:100vh;
+        display:flex;
+        justify-content:center;
+        align-items:center;
+        padding:20px;
+    }
 
-            const firebaseConfig = {
-                apiKey: "AIzaSyCWlRQ5ZVI3_v3on9X3mBrnmS2DrPq1dt0",
-                authDomain: "workouttracker-f174d.firebaseapp.com",
-                projectId: "workouttracker-f174d",
-                storageBucket: "workouttracker-f174d.firebasestorage.app",
-                messagingSenderId: "984311835015",
-                appId: "1:984311835015:web:fcd67f664b9de2f34a4b22",
-                measurementId: "G-1GPW2LQJ4Z"
-            };
+    .login-container{
+        width:100%;
+        max-width:420px;
+    }
 
-            // Initialize Firebase
-            const app = initializeApp(firebaseConfig);
+    .logo{
+        text-align:center;
+        margin-bottom:40px;
+    }
 
-            const auth = getAuth(app);
-            const db = getFirestore(app);
+    .logo h1{
+        font-size:42px;
+        font-weight:700;
+        margin-bottom:10px;
+    }
 
-            document.getElementById("loginBtn").addEventListener("click", async () => {
+    .logo p{
+        color:#8a8a8a;
+        font-size:15px;
+    }
 
-                const email = document.getElementById("email").value;
-                const password = document.getElementById("password").value;
+    .login-card{
+        background:#111;
+        border:1px solid #1f1f1f;
+        border-radius:28px;
+        padding:28px;
+    }
 
-                try {
-                    // Sign in
-                    const userCredential =
-                        await signInWithEmailAndPassword(auth, email, password);
+    .section-title{
+        font-size:28px;
+        font-weight:700;
+        margin-bottom:25px;
+    }
 
-                    const user = userCredential.user;
+    .input-group{
+        margin-bottom:20px;
+    }
 
-                    // Redirect to home page
-                    location.href = "index.html";
+    .input-group label{
+        display:block;
+        margin-bottom:10px;
+        font-size:14px;
+        color:#bdbdbd;
+    }
 
-                } catch (error) {
-                    console.error("Error signing in:", error);
-                    alert("Login failed: " + error.message);
-                }
-            });
-        </script>
-    </body>
+    .input-group input{
+        width:100%;
+        height:58px;
+        background:#1a1a1a;
+        border:1px solid #2a2a2a;
+        border-radius:18px;
+        padding:0 18px;
+        color:white;
+        font-size:16px;
+        outline:none;
+        transition:0.2s;
+    }
+
+    .input-group input:focus{
+        border-color:#6d95ea;
+    }
+
+    .forgot-password{
+        text-align:right;
+        margin-top:-5px;
+        margin-bottom:22px;
+    }
+
+    .forgot-password a{
+        color:#6d95ea;
+        text-decoration:none;
+        font-size:14px;
+    }
+
+    .login-btn{
+        width:100%;
+        height:60px;
+        border:none;
+        border-radius:20px;
+        background:#6d95ea;
+        color:white;
+        font-size:18px;
+        font-weight:700;
+        cursor:pointer;
+        transition:0.2s;
+    }
+
+    .login-btn:hover{
+        opacity:0.9;
+    }
+
+    .divider{
+        display:flex;
+        align-items:center;
+        margin:28px 0;
+        color:#666;
+        font-size:14px;
+    }
+
+    .divider::before,
+    .divider::after{
+        content:"";
+        flex:1;
+        height:1px;
+        background:#222;
+    }
+
+    .divider span{
+        padding:0 15px;
+    }
+
+    .social-btn{
+        width:100%;
+        height:56px;
+        background:#1a1a1a;
+        border:1px solid #2a2a2a;
+        border-radius:18px;
+        color:white;
+        font-size:16px;
+        font-weight:600;
+        margin-bottom:14px;
+        cursor:pointer;
+        transition:0.2s;
+    }
+
+    .social-btn:hover{
+        background:#222;
+    }
+
+    .bottom-text{
+        text-align:center;
+        margin-top:25px;
+        color:#8a8a8a;
+        font-size:14px;
+    }
+
+    .bottom-text a{
+        color:#6d95ea;
+        text-decoration:none;
+        font-weight:600;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="login-container">
+
+    <div class="logo">
+        <h1>FitTrack</h1>
+        <p>Welcome back to your workouts</p>
+    </div>
+
+    <div class="login-card">
+
+        <div class="section-title">
+            Log In
+        </div>
+
+        <div class="input-group">
+            <label>Email</label>
+            <input type="email" placeholder="Enter your email" id="email">
+        </div>
+
+        <div class="input-group">
+            <label>Password</label>
+            <input type="password" placeholder="Enter your password" id="password">
+        </div>
+
+        <button class="login-btn" id="loginBtn">
+            Log In
+        </button>
+
+        <div class="divider">
+            <span>OR</span>
+        </div>
+
+        <div class="bottom-text">
+            Don't have an account?
+            <a href="signup.html">Sign Up</a>
+        </div>
+
+    </div>
+
+</div>
+<script src="login.js" type="module"></script>
+</body>
 </html>
