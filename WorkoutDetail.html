@@ -4,13 +4,13 @@
         <META charset="UTF-8" />
         <META name="viewport" content="width=device-width, initial-scale=1.0" />
         <TITLE>Workout Detail</TITLE>
-        <LINK href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&display=swap" rel="stylesheet"/>
-        <LINK rel="stylesheet" href="WorkoutDetail.css"/>
+        <LINK href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&display=swap" rel="stylesheet" />
+        <LINK rel="stylesheet" href="WorkoutDetail.css" />
     </HEAD>
     <BODY>
         <DIV id="app">
             <NAV id="top-nav">
-                <BUTTTON id="back-button" aria-label="Go back" onclick="goBack()">
+                <BUTTON id="back-button" aria-label="Go back" onclick="goBack()">
                     <SVG width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
                         <POLYLINE points="15 18 9 12 15 6"></POLYLINE>
                     </SVG>
@@ -18,19 +18,19 @@
                 <H1 id="workout-title">Default Title</H1>
             </NAV>
 
-        <DIV id="workout-summary">
-            <SPAN id="info-exercises">Default Exercise</SPAN>
-            <SPAN id="info-time">Default Time</SPAN>
-        </DIV>
+            <div id="workout-summary">
+                <span id="info-exercises">Default Exercise</span>
+                <span id="info-time">Default Time</span>
+            </div>
 
-        <DIV id="exercise-list"></DIV>
-        </DIV>
+            <div id="exercise-list"></div>
+        </div>
 
         <DIV id="bottom-buttons">
             <BUTTON id="edit-button" onclick="editWorkout()">Edit</BUTTON>
             <BUTTON id="start-button" onclick="startWorkout()">Start</BUTTON>
         </DIV>
 
-          <SCRIPT src="WorkoutDetail.js"></SCRIPT>
-    </BODY>
-</HTML>
+        <script src="WorkoutDetail.js"></script>
+    </body>
+</html>

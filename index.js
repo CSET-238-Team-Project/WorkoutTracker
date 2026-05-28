@@ -1,15 +1,5 @@
-console.log("Hello, world!");
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-app.js";
-import { 
-    getAuth, 
-    onAuthStateChanged 
-} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
-
-import { 
-    getFirestore, 
-    doc, 
-    getDoc 
-} from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-auth.js";
 
 const firebaseConfig = {
     apiKey: "AIzaSyCWlRQ5ZVI3_v3on9X3mBrnmS2DrPq1dt0",
@@ -21,54 +11,48 @@ const firebaseConfig = {
     measurementId: "G-1GPW2LQJ4Z"
 };
 
-// Initialize Firebase
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
-const db = getFirestore(app);
 
-onAuthStateChanged(auth, async (user) => {
-
+onAuthStateChanged(auth, (user) => {
     if (!user) {
         window.location.href = "signup.html";
         return;
     }
-    try {
-        console.log(user);
-        const myRef = doc(db, "users", user.uid);
 
-        const snap = await getDoc(myRef);
+    // updates streaks based on the logger page's count
+    const streakCount = parseInt(localStorage.getItem('workoutStreak')) || 0;
+    const streakWeek = JSON.parse(localStorage.getItem('streakWeek')) || [false,false,false,false,false,false,false];
 
-        if (!snap.exists()) {
-            console.log("No user document found");
-            return;
-        }
+    // updates the streak text... do not know how well it works though
+    document.querySelector('.streak-count').textContent = `${streakCount} day streak`;
+    document.querySelector('.stat-card p').textContent = `${streakCount} Days`;
 
-        const data = snap.data();
+    // updates the streak day
+    const todayIndex = (new Date().getDay() + 6) % 7;
+    const streakList = [
+        document.getElementById("mon"),
+        document.getElementById("tue"),
+        document.getElementById("wed"),
+        document.getElementById("thu"),
+        document.getElementById("fri"),
+        document.getElementById("sat"),
+        document.getElementById("sun")
+    ];
 
-        const streak = data.streak || [];
+    streakList[todayIndex].classList.add("today");
 
-        const streakList = [
-            document.getElementById("mon"),
-            document.getElementById("tue"),
-            document.getElementById("wed"),
-            document.getElementById("thu"),
-            document.getElementById("fri"),
-            document.getElementById("sat"),
-            document.getElementById("sun")
-        ];
-
-        for (let i = 0; i < streak.length; i++) {
-
-            if (streak[i]) {
-                streakList[i].classList.add("complete");
-            }
-        }
-
-    } catch (error) {
-
-        console.error(error);
-
+    // populates the weekly counter
+    for (let i = 0; i < streakWeek.length; i++) {
+        if (streakWeek[i]) streakList[i].classList.add("complete");
     }
+});
 
+// this will pass specific workouts to the detail page when pull push or legs is clicked
+document.querySelectorAll('.workout-block').forEach(block => {
+    block.addEventListener('click', function () {
+        const workoutId = this.getAttribute('data-workout');
+        localStorage.setItem('selectedWorkout', workoutId);
+        location.href = 'WorkoutDetail.html';
+    });
 });

@@ -1,65 +1,136 @@
 // Workout Data
-var workout = {
-    name: "Upper Day",
+const selectedWorkout = localStorage.getItem('selectedWorkout'); // pulls from index.js
+if(selectedWorkout === 'push')
+{
+    var workout = {
+    name: "Push Day",
     exercises: [
     {
-        name: "Incline Bench Press (Smith Machine)",
+        name: "Bench Press",
         sets: [
+            { reps: 10, weight: 135 },
+            { reps: 10, weight: 135 },
+            { reps: 10, weight: 135 },
+            { reps: 10, weight: 135 }
+        ]
+    },
+    {
+        name: "Shoulder Press",
+        sets: [
+            { reps: 12, weight: 120 },
+            { reps: 12, weight: 120 },
+            { reps: 12, weight: 120 },
+            { reps: 12, weight: 120 }
+        ]
+    },
+    {
+        name: "Tricep Dips",
+        sets: [
+            { reps: 15, weight: 15 },
+            { reps: 15, weight: 15 },
+            { reps: 15, weight: 15 }
+        ]
+    },
+    {
+        name: "Incline Dumbbell Press",
+        sets: [
+            { reps: 10, weight: 95 },
+            { reps: 10, weight: 95 },
+            { reps: 10, weight: 95 }
+        ]
+    }
+        ]
+    };
+}
+
+else if(selectedWorkout === 'pull')
+{
+    var workout = {
+    name: "Pull Day",
+    exercises: [
+    {
+        name: "Pull-Ups",
+        sets: [
+            { reps: 8, weight: 45 },
+            { reps: 8, weight: 45 },
+            { reps: 8, weight: 45 },
+            { reps: 8, weight: 45 }
+        ]
+    },
+    {
+        name: "Barbell Rows",
+        sets: [
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 }
+        ]
+    },
+    {
+        name: "Bicep Curls",
+        sets: [
+            { reps: 12, weight: 15 },
+            { reps: 12, weight: 15 },
+            { reps: 12, weight: 15 }
+        ]
+    },
+    {
+        name: "Lat Pulldown",
+        sets: [
+            { reps: 12, weight: 100 },
+            { reps: 12, weight: 100 },
+            { reps: 12, weight: 100 }
+        ]
+    }
+        ]
+    };
+}
+
+else if(selectedWorkout === 'legs')
+{
+    var workout = {
+    name: "Leg Day",
+    exercises: [
+    {
+        name: "Squats",
+        sets: [
+            { reps: 8, weight: 135 },
+            { reps: 8, weight: 135 },
+            { reps: 8, weight: 135 },
             { reps: 8, weight: 135 },
             { reps: 8, weight: 135 }
         ]
     },
     {
-        name: "Chest Fly (Machine)",
+        name: "Romanian Deadlifts",
         sets: [
-            { reps: 8, weight: 120 },
-            { reps: 8, weight: 120 }
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 },
+            { reps: 10, weight: 120 }
         ]
     },
     {
-        name: "Single Arm Lateral Raise (Cable)",
+        name: "Leg Press",
         sets: [
-            { reps: 8, weight: 15 },
-            { reps: 8, weight: 15 }
+            { reps: 12, weight: 15 },
+            { reps: 12, weight: 15 },
+            { reps: 12, weight: 15 },
+            { reps: 12, weight: 15 }
         ]
     },
     {
-        name: "Seated Shoulder Press (Smith Machine)",
+        name: "Calf Raises",
         sets: [
-            { reps: 8, weight: 95 },
-            { reps: 8, weight: 95 }
-        ]
-    },
-    {
-        name: "Lat Pulldown (Cable)",
-        sets: [
-            { reps: 8, weight: 120 },
-            { reps: 8, weight: 120 }
-        ]
-    },
-    {
-        name: "Seated Cable Row - V Grip (Cable)",
-        sets: [
-            { reps: 8, weight: 90 },
-            { reps: 8, weight: 90 }
-        ]
-    },
-    {
-        name: "Tricep Pushdown (Cable)",
-        sets: [
-            { reps: 8, weight: 55 },
-            { reps: 8, weight: 55 }
-        ]
-    },
-    {
-        name: "Preacher Curl (Machine)",
-        sets: [
-            { reps: 8, weight: 70 },
-            { reps: 8, weight: 70 }
+            { reps: 15, weight: 95 },
+            { reps: 15, weight: 95 },
+            { reps: 15, weight: 95 },
+            { reps: 15, weight: 95 }
         ]
     }
-    ]
-};
+        ]
+    };
+}
 
 // Set Title
 document.getElementById("workout-title").textContent = workout.name;
