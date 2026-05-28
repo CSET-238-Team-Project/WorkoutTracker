@@ -36,8 +36,9 @@ onAuthStateChanged(auth, async (user) => {
     const myRef = doc(db, "users", user.uid);
     const snap = await getDoc(myRef);
     const data = snap.data() || {};
-    const name = data.name || user.email;
+    const name = data.name;
     const email = user.email;
 
-    
+    document.getElementById("username").textContent = name;
+    document.getElementById('logoutBtn').addEventListener('click', () => auth.signOut());
 });
