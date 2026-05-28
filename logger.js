@@ -186,8 +186,36 @@ function goHome()
   window.location.href = 'index.html';
 }
 
+
+function UpdateStreak()
+{
+  const td = new Date().toDateString();
+  const last = localStorage.getItem('lastWorkoutDate');
+  let streak = parseInt(localStorage.getItem('workoutStreak')) || 0;
+
+  if(last === td)
+  {
+    return;
+  }
+
+  const yd = new Date();
+  yd.setDate(yd.getDate() -1);
+
+  if(last === yd.toDateString())
+  {
+    streak += 1;
+  }
+  else
+  {
+    streak = 1;
+  }
+
+  localStorage.setItem('workoutStreak', streak);
+  localStorage.setItem('lastWorkoutDate', td);
+}
 async function finishWorkout() 
 {
+  UpdateStreak();
   alert("Goodjob!\nClick OK to save Workout!");
   clearInterval(timerInterval);
   window.location.href = 'index.html';

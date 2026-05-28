@@ -87,7 +87,10 @@ for (var i = 0; i < workout.exercises.length; i++) {
 
     var cardHTML =
         '<DIV class="exercise-card">' +
-            '<DIV class="card-title">' + exercise.name + "</DIV>" +
+            '<DIV class="card-header">' +
+                '<SPAN class="drag-handle">☰</SPAN>' +
+                '<SPAN class="card-title">' + exercise.name + "</SPAN>" +
+            "</DIV>" +
             '<TABLE class="sets-table">' +
                 "<THEAD>" +
                     "<TR>" +
@@ -98,7 +101,36 @@ for (var i = 0; i < workout.exercises.length; i++) {
                 "</THEAD>" +
             "<TBODY>" + rowsHTML + "</TBODY>" +
             "</TABLE>" +
+            '<BUTTON class="add-set-button">+ Add set</BUTTON>' +
         "</DIV>";
 
     list.innerHTML = list.innerHTML + cardHTML;
+}
+
+function AddSet()
+{
+    var card = this.parentElement;
+    var tbody = card.querySelector("TBODY");
+    var nextSetNum = tbody.rows.length + 1;
+
+    var lastRow = tbody.rows[tbody.rows.length - 1];
+    var lastReps = lastRow.cells[1].textContent;
+    var lastWeight = lastRow.cells[2].textContent;
+    
+    var newRow =
+        "<TR>" +
+            '<TD class="set-num">' + nextSetNum + "</TD>" +
+            "<TD>" + lastReps + "</TD>" +
+            "<TD>" + lastWeight + "</TD>" +
+        "</TR>";
+
+    tbody.innerHTML = tbody.innerHTML + newRow;
+
+}
+
+var addSetButton = document.getElementsByClassName("add-set-button");
+
+for (var i = 0; i < addSetButton.length; i++)
+{
+    addSetButton[i].addEventListener("click", AddSet)
 }
