@@ -15,15 +15,26 @@
                 <BUTTON id="save-button">Save</BUTTON>
             </NAV>
             <DIV id="workout-name-text-box">
-                <SPAN id="workout-name">Default Name</SPAN>
+                <INPUT type="text" id="workout-name" value="Default Name" />
             </DIV>
 
             <DIV id="exercise-list"></DIV>
 
             <BUTTON id="add-exercise-button">Add Exercise</BUTTON>
+
+            <div class="confirm-overlay hidden" id="confirmOverlay">
+            <div class="confirm-box">
+            <h3>Unsaved changes</h3>
+            <p>Are you sure you want to discard all routine changes?</p>
+            <div class="confirm-actions">
+            <button class="conf-stay" onclick="hideConfirm()">Cancel</button>
+            <button class="conf-leave" onclick="leaveWithoutSaving()">Discard</button>
+        </div>
+    </div>
+</div>
         </DIV>
 
-        <SCRIPT src="EditWorkout.js"></SCRIPT>
+        <SCRIPT type="module" src="EditWorkout.js"></SCRIPT>
     </BODY>
 
 </HTML>
