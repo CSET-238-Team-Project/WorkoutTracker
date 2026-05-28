@@ -131,6 +131,17 @@ else if(selectedWorkout === 'legs')
         ]
     };
 }
+else (selectedWorkout !== 'push' 
+    && selectedWorkout !== 'pull' 
+    && selectedWorkout !== 'legs')
+    {
+        var workout = {
+            name: "Custom Workout", 
+            exercises: [
+
+            ]
+        };
+    }
 
 // Set Title
 document.getElementById("workout-title").textContent = workout.name;
