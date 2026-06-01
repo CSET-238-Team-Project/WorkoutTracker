@@ -97,49 +97,6 @@ cancelMilestone.addEventListener("click", () => {
     milestoneGoal.value = "";
 });
 
-// Save milestone
-saveMilestone.addEventListener("click", () => {
-
-    const name = milestoneName.value.trim();
-    const goal = milestoneGoal.value.trim();
-
-    if (!name || !goal) {
-        alert("Please fill out both fields.");
-        return;
-    }
-
-    const milestone = document.createElement("div");
-    milestone.className = "milestone";
-
-    milestone.innerHTML = `
-        <div class="milestone-info">
-            <div class="milestone-title">
-                ${name}
-            </div>
-
-            <div class="milestone-date">
-                Goal: ${goal}
-            </div>
-        </div>
-
-        <button class="complete-btn pending">
-            Complete
-        </button>
-    `;
-
-    milestoneList.appendChild(milestone);
-
-    const completeButton =
-        milestone.querySelector(".complete-btn");
-
-    completeButton.addEventListener("click", markCompleted);
-
-    milestoneName.value = "";
-    milestoneGoal.value = "";
-
-    modal.style.display = "none";
-});
-
 function createMilestoneElement(id, name, goal, completed) {
 
     const milestone = document.createElement("div");
