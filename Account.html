@@ -97,7 +97,6 @@
             }
 
             .progress-fill{
-                width:80%;
                 height:100%;
                 background:#6d95ea;
                 border-radius:999px;
@@ -159,6 +158,139 @@
                 background: #f8fafc;
                 color: #111827;
             }
+            
+            .milestone-header{
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+                margin-bottom:18px;
+            }
+
+            .add-milestone-btn{
+                width:40px;
+                height:40px;
+                border:none;
+                border-radius:50%;
+                background:#6d95ea;
+                color:white;
+                font-size:24px;
+                font-weight:bold;
+                cursor:pointer;
+                transition:0.2s;
+            }
+
+            .add-milestone-btn:hover{
+                opacity:0.9;
+            }
+
+            .milestone-list{
+                display:flex;
+                flex-direction:column;
+                gap:12px;
+            }
+
+            .milestone{
+                background:#1a1a1a;
+                border:1px solid #2a2a2a;
+                border-radius:16px;
+                padding:15px;
+                display:flex;
+                justify-content:space-between;
+                align-items:center;
+            }
+
+            .milestone-info{
+                flex:1;
+            }
+
+            .milestone-title{
+                font-size:16px;
+                font-weight:700;
+                margin-bottom:6px;
+            }
+
+            .milestone-date{
+                color:#8a8a8a;
+                font-size:13px;
+            }
+
+            .complete-btn{
+                border:none;
+                border-radius:12px;
+                padding:10px 16px;
+                color:white;
+                font-weight:bold;
+                cursor:pointer;
+                transition:0.2s;
+            }
+
+            .complete-btn:hover{
+                opacity:0.9;
+            }
+
+            .complete-btn.pending{
+                background:#6d95ea;
+            }
+
+            .complete-btn.completed{
+                background:#2e7d32;
+                cursor:default;
+            }
+
+            .modal{
+                display:none;
+                position:fixed;
+                inset:0;
+                background:rgba(0,0,0,.75);
+                justify-content:center;
+                align-items:center;
+            }
+
+            .modal-content{
+                background:#111;
+                border:1px solid #2a2a2a;
+                border-radius:20px;
+                padding:25px;
+                width:90%;
+                max-width:350px;
+            }
+
+            .modal-content h2{
+                margin-bottom:15px;
+            }
+
+            .modal-content input{
+                width:100%;
+                margin-bottom:12px;
+                padding:12px;
+                border:none;
+                border-radius:12px;
+                background:#1a1a1a;
+                color:white;
+            }
+
+            .modal-buttons{
+                display:flex;
+                gap:10px;
+            }
+
+            .modal-buttons button{
+                flex:1;
+                padding:12px;
+                border:none;
+                border-radius:12px;
+                cursor:pointer;
+            }
+
+            #saveMilestone{
+                background:#6d95ea;
+                color:white;
+            }
+
+            #cancelMilestone{
+                background:#333;
+                color:white;
+            }
         </style>
     </head>
 
@@ -183,22 +315,22 @@
 
             </div>
 
-            <!-- Weekly Progress -->
+            <!-- Milestones -->
             <div class="card">
 
-                <div class="section-title">
-                    Weekly Workouts
+                <div class="milestone-header">
+                    <div class="section-title" style="margin-bottom:0;">
+                        Milestones
+                    </div>
+
+                    <button class="add-milestone-btn" id="addMilestoneBtn">
+                        +
+                    </button>
                 </div>
 
-                <div class="progress-top">
-                    <span>4 / 5 workouts completed</span>
-                    <span>80%</span>
+                <div class="milestone-list" id="milestoneList">
+                    
                 </div>
-
-                <div class="progress-bar">
-                    <div class="progress-fill"></div>
-                </div>
-
             </div>
 
             <!-- Buttons -->
@@ -214,6 +346,29 @@
                 <button class="bottom-button active" onclick="location.href = 'index.html'">Home</button>
                 <button class="bottom-button">Settings</button>
             </nav>
+
+        </div>
+        <!-- Add Milestone Modal -->
+        <div id="milestoneModal" class="modal">
+
+            <div class="modal-content">
+                <h2>Add Milestone</h2>
+
+                <input
+                    type="text"
+                    id="milestoneName"
+                    placeholder="Milestone Name">
+
+                <input
+                    type="text"
+                    id="milestoneGoal"
+                    placeholder="Goal">
+
+                <div class="modal-buttons">
+                    <button id="saveMilestone">Save</button>
+                    <button id="cancelMilestone">Cancel</button>
+                </div>
+            </div>
 
         </div>
         <script src="account.js" type="module"></script>
