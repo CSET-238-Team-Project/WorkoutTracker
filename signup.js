@@ -47,7 +47,9 @@ document.getElementById("signupBtn").addEventListener("click", async () => {
             name: name,
             email: email,
             streak: [1, 1, 0, 1, 1, 0, 0],
+            weekStreak: 0,
             createdAt: new Date()
+            
         });
 
         alert("Account created!");
