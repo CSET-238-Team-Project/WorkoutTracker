@@ -1,6 +1,10 @@
 // Workout Data
 const selectedWorkout = localStorage.getItem('selectedWorkout'); // pulls from index.js
-if(selectedWorkout === 'push')
+var edited = JSON.parse(localStorage.getItem('editWorkout')) || null;
+if (edited) {
+    var workout = edited;
+}
+else if(selectedWorkout === 'push')
 {
     var workout = {
     name: "Push Day",
@@ -206,4 +210,15 @@ function startWorkout()
 {
     localStorage.setItem('activeWorkout' , JSON.stringify(workout));
     window.location.href = 'LoggerPage.html';
+}
+
+function editWorkout()
+{
+    localStorage.setItem('editWorkout', JSON.stringify(workout));
+    window.location.href = 'EditWorkout.html';
+}
+
+function goBack()
+{
+    window.location.href = 'index.html';
 }

@@ -1,0 +1,40 @@
+<!DOCTYPE HTML>
+<HTML>
+    <HEAD>
+        <META charset="UTF-8" />
+        <META name="viewport" content="width=device-width, initial-scale=1.0" />
+        <TITLE>Edit Workout</TITLE>
+        <LINK href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;600&display=swap" rel="stylesheet" />
+        <LINK rel="stylesheet" href="EditWorkout.css" />
+    </HEAD>
+    <BODY>
+        <DIV id="app">
+            <NAV id="top-nav">
+                <BUTTON id="back-button">✕</BUTTON>
+                <H1 id="page-title">Edit Workout</H1>
+                <BUTTON id="save-button">Save</BUTTON>
+            </NAV>
+            <DIV id="workout-name-text-box">
+                <INPUT type="text" id="workout-name" value="Default Name" />
+            </DIV>
+
+            <DIV id="exercise-list"></DIV>
+
+            <BUTTON id="add-exercise-button">Add Exercise</BUTTON>
+
+            <div class="confirm-overlay hidden" id="confirmOverlay">
+            <div class="confirm-box">
+            <h3>Unsaved changes</h3>
+            <p>Are you sure you want to discard all routine changes?</p>
+            <div class="confirm-actions">
+            <button class="conf-stay" onclick="hideConfirm()">Cancel</button>
+            <button class="conf-leave" onclick="leaveWithoutSaving()">Discard</button>
+        </div>
+    </div>
+</div>
+        </DIV>
+
+        <SCRIPT type="module" src="EditWorkout.js"></SCRIPT>
+    </BODY>
+
+</HTML>
