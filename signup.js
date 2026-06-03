@@ -46,7 +46,7 @@ document.getElementById("signupBtn").addEventListener("click", async () => {
         await setDoc(doc(db, "users", user.uid), {
             name: name,
             email: email,
-            streak: [1, 1, 0, 1, 1, 0, 0],
+            streak: {weeks: 0, days: [1, 1, 0, 1, 1, 0, 0]},
             weekStreak: 0,
             createdAt: new Date()
             

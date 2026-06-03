@@ -44,10 +44,12 @@ onAuthStateChanged(auth, async (user) => {
     const data = snap.data() || {};
     const name = data.name;
     const email = user.email;
+    const streak = data.streak || {weeks: 0, days: [0, 0, 0, 0, 0, 0, 0]};
     currentUser = user;
 
     document.getElementById("username").textContent = name;
     document.getElementById('signoutBtn').addEventListener('click', () => auth.signOut());
+    document.getElementById('subtext').textContent = `Workout Consistency: ${streak.weeks} Weeks`;
 
     const milestonesRef = collection(
         db,
@@ -157,7 +159,6 @@ function createMilestoneElement(id, name, goal, completed) {
     milestoneList.appendChild(milestone);
 
     deleteBtn.addEventListener("click", async () => {
-        console.log("Deleting milestone with ID:", id);
         const milestoneRef = doc(
             db,
             "users",
