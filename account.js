@@ -11,7 +11,8 @@ import {
     collection,
     addDoc,
     getDocs,
-    updateDoc
+    updateDoc,
+    deleteDoc
 } from "https://www.gstatic.com/firebasejs/10.0.0/firebase-firestore.js";
 
 const firebaseConfig = {
@@ -107,12 +108,12 @@ function createMilestoneElement(id, name, goal, completed) {
             <div class="milestone-title">
                 ${name}
             </div>
-
             <div class="milestone-date">
                 Goal: ${goal}
             </div>
         </div>
 
+        <button class="delete-btn">Delete</button>
         <button class="complete-btn ${
             completed ? "completed" : "pending"
         }">
@@ -124,8 +125,8 @@ function createMilestoneElement(id, name, goal, completed) {
         </button>
     `;
 
-    const button =
-        milestone.querySelector(".complete-btn");
+    const button = milestone.querySelector(".complete-btn");
+    const deleteBtn = milestone.querySelector(".delete-btn");
 
     if (!completed) {
 
@@ -154,6 +155,19 @@ function createMilestoneElement(id, name, goal, completed) {
     }
 
     milestoneList.appendChild(milestone);
+
+    deleteBtn.addEventListener("click", async () => {
+        console.log("Deleting milestone with ID:", id);
+        const milestoneRef = doc(
+            db,
+            "users",
+            currentUser.uid,
+            "milestones",
+            id
+        );
+        await deleteDoc(milestoneRef);
+        milestone.remove();
+    });
 }
 
 saveMilestone.addEventListener("click", async () => {
