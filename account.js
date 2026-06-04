@@ -57,11 +57,18 @@ onAuthStateChanged(auth, async (user) => {
         user.uid,
         "milestones"
     );
+    const prRef = collection(
+        db,
+        "users",
+        user.uid,
+        "PRs"
+    );
 
     const milestoneSnapshot =
         await getDocs(milestonesRef);
-
+    const prSnapshot = await getDocs(prRef);
     milestoneList.innerHTML = "";
+    prList.innerHTML = "";
 
     milestoneSnapshot.forEach(docSnap => {
 
@@ -72,6 +79,15 @@ onAuthStateChanged(auth, async (user) => {
             milestone.name,
             milestone.goal,
             milestone.completed
+        );
+    });
+
+    prSnapshot.forEach(docSnap => {
+        const pr = docSnap.data();
+        createPRsElement(
+            docSnap.id,
+            pr.exercise,
+            pr.weight
         );
     });
 });
@@ -87,6 +103,16 @@ const milestoneGoal = document.getElementById("milestoneGoal");
 
 const milestoneList = document.getElementById("milestoneList");
 
+const addPersonalRecordBtn = document.getElementById("addPersonalRecordBtn");
+const prModal = document.getElementById("personalRecordModal");
+const savePersonalRecord = document.getElementById("savePersonalRecord");
+const cancelPersonalRecord = document.getElementById("cancelPersonalRecord");
+
+const exerciseName = document.getElementById("exerciseName");
+const personalRecordWeight = document.getElementById("weight");
+
+const prList = document.getElementById("prList");
+
 // Open popup
 addMilestoneBtn.addEventListener("click", () => {
     modal.style.display = "flex";
@@ -99,6 +125,52 @@ cancelMilestone.addEventListener("click", () => {
     milestoneName.value = "";
     milestoneGoal.value = "";
 });
+
+addPersonalRecordBtn.addEventListener("click", () => {
+    prModal.style.display = "flex";
+});
+
+// Close popup
+cancelPersonalRecord.addEventListener("click", () => {
+    prModal.style.display = "none";
+
+    exerciseName.value = "";
+    weight.value = "";
+});
+
+function createPRsElement(id, exercise, weight)
+{
+    const pr = document.createElement("div");
+    pr.className = "pr";
+
+    pr.innerHTML = `
+        <div class="milestone-info">
+            <div class="milestone-title">
+                ${exercise}
+            </div>
+            <div class="milestone-date">
+                Weight: ${weight} lbs
+            </div>
+        </div>
+
+        <button class="delete-btn">Delete</button>
+
+    `;
+    prList.appendChild(pr);
+    const deleteBtn = pr.querySelector(".delete-btn");
+    deleteBtn.addEventListener("click", async () => {
+        const prRef = doc(
+            db,
+            "users",
+            currentUser.uid,
+            "PRs",
+            id
+        );
+        
+        await deleteDoc(prRef);
+        pr.remove();
+    });
+}
 
 function createMilestoneElement(id, name, goal, completed) {
 
@@ -206,4 +278,39 @@ saveMilestone.addEventListener("click", async () => {
     milestoneGoal.value = "";
 
     modal.style.display = "none";
+});
+
+savePersonalRecord.addEventListener("click", async () => {
+
+    const weight = personalRecordWeight.value.trim();
+    const exercise = exerciseName.value.trim();
+
+    if (!weight || !exercise) {
+        alert("Please fill out both fields.");
+        return;
+    }
+
+    const docRef = await addDoc(
+        collection(
+            db,
+            "users",
+            currentUser.uid,
+            "PRs"
+        ),
+        {
+            exercise,
+            weight,
+        }
+    );
+
+    createPRsElement(
+        docRef.id,
+        exercise,
+        weight,
+    );
+
+    exerciseName.value = "";
+    personalRecordWeight.value = "";  
+
+    prModal.style.display = "none";
 });

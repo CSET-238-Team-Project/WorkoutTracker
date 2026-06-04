@@ -286,8 +286,18 @@
                 background:#6d95ea;
                 color:white;
             }
+            
+            #savePersonalRecord{
+                background:#6d95ea;
+                color:white;
+            }
 
             #cancelMilestone{
+                background:#333;
+                color:white;
+            }
+            
+            #cancelPersonalRecord{
                 background:#333;
                 color:white;
             }
@@ -343,6 +353,23 @@
                     
                 </div>
             </div>
+            
+            <div class="card">
+
+                <div class="milestone-header">
+                    <div class="section-title" style="margin-bottom:0;">
+                        Personal Records
+                    </div>
+
+                    <button class="add-milestone-btn" id="addPersonalRecordBtn">
+                        +
+                    </button>
+                </div>
+
+                <div class="milestone-list" id="prList">
+                    
+                </div>
+            </div>
 
             <!-- Buttons -->
             <button class="button settings-btn">
@@ -378,6 +405,28 @@
                 <div class="modal-buttons">
                     <button id="saveMilestone">Save</button>
                     <button id="cancelMilestone">Cancel</button>
+                </div>
+            </div>
+
+        </div>
+        <div id="personalRecordModal" class="modal">
+
+            <div class="modal-content">
+                <h2>Add Personal Record</h2>
+
+                <input
+                    type="text"
+                    id="exerciseName"
+                    placeholder="Exercise">
+
+                <input
+                    type="text"
+                    id="weight"
+                    placeholder="Weight">
+
+                <div class="modal-buttons">
+                    <button id="savePersonalRecord">Save</button>
+                    <button id="cancelPersonalRecord">Cancel</button>
                 </div>
             </div>
 
