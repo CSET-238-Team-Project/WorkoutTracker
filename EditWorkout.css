@@ -78,6 +78,16 @@ body {
     outline: none
 }
 
+#workout-day {
+    width: 100%;
+    background: none;
+    border: none;
+    color: #FFFFFF;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 17px;
+    outline: none
+}
+
 #exercise-list {
     display: flex;
     flex-direction: column;

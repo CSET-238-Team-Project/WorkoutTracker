@@ -26,63 +26,209 @@ const firebaseConfig = {
 };
 
 const app = initializeApp(firebaseConfig);
-
 const auth = getAuth(app);
 const db = getFirestore(app);
 let currentUser = null;
 
+const workoutPanel = document.querySelector('.workout-panel');
+if (workoutPanel) {
+    workoutPanel.addEventListener('click', function (e) {
+        const workoutBlock = e.target.closest('.workout-block');
+        if (workoutBlock) {
+            const workoutId = workoutBlock.getAttribute('data-workout');
+            localStorage.removeItem('isNewWorkout');
+            localStorage.setItem('selectedWorkout', workoutId);
+            location.href = 'WorkoutDetail.html';
+        }
+    });
+}
+
 onAuthStateChanged(auth, async (user) => {
+    console.log('Auth state changed, user:', user?.uid);
+    
     if (!user) {
         window.location.href = "signup.html";
         return;
     }
+    
     const myRef = doc(db, "users", user.uid);
     const snap = await getDoc(myRef);
     const data = snap.data() || {};
-    const streak = data.streak || {weeks: 0, days: [0, 0, 0, 0, 0, 0, 0]};
-    // updates streaks based on the logger page's count
+    
+    // Safely initialize streak with defaults
+    const streak = data.streak || {};
+    streak.weeks = streak.weeks || 0;
+    streak.days = streak.days || [0, 0, 0, 0, 0, 0, 0];
+    
     const streakCount = parseInt(localStorage.getItem('workoutStreak')) || 0;
-    const streakWeek = JSON.parse(localStorage.getItem('streakWeek')) || [0,0,0,0,0,0,0];
 
-    // updates the streak text... do not know how well it works though
-    document.querySelector('.streak-count').textContent = `${streakCount} day streak`;
-    document.querySelector('.stat-card p').textContent = `${streakCount} Days`;
+    // Safe updates with null checks
+    const streakCountEl = document.querySelector('.streak-count');
+    const statCardEl = document.querySelector('.stat-card p');
+    
+    if (streakCountEl) streakCountEl.textContent = `${streakCount} day streak`;
+    if (statCardEl) statCardEl.textContent = `${streakCount} Days`;
 
-    // updates the streak day
+    // Safe streak list access
     const todayIndex = (new Date().getDay() + 6) % 7;
-    const streakList = [
-        document.getElementById("mon"),
-        document.getElementById("tue"),
-        document.getElementById("wed"),
-        document.getElementById("thu"),
-        document.getElementById("fri"),
-        document.getElementById("sat"),
-        document.getElementById("sun")
-    ];
+    const dayIds = ["mon", "tue", "wed", "thu", "fri", "sat", "sun"];
+    const streakList = dayIds.map(id => document.getElementById(id)).filter(el => el !== null);
 
-    streakList[todayIndex].classList.add("today");
-    document.getElementById('streak-weeks').textContent = `${streak.weeks} week(s)`;
+    if (streakList.length > 0 && streakList[todayIndex]) {
+        streakList[todayIndex].classList.add("today");
+    }
+
+    const streakWeeksEl = document.getElementById('streak-weeks');
+    if (streakWeeksEl) streakWeeksEl.textContent = `${streak.weeks || 0} week(s)`;
+    
     let count = 0;
-    for (let i = todayIndex; i >= 0; i--) {
-        if (streak.days[i]) {
-            count++
+    if (Array.isArray(streak.days)) {
+        for (let i = todayIndex; i >= 0; i--) {
+            if (streak.days[i]) count++;
         }
     }
-    document.getElementById('streak-count').textContent = `${count + (7*streak.weeks)} day streak`;
+    
+    const streakCountEl2 = document.getElementById('streak-count');
+    if (streakCountEl2) streakCountEl2.textContent = `${count + (7 * (streak.weeks || 0))} day streak`;
 
-    // populates the weekly counter
-    for (let i = 0; i < 7; i++) {
-        if (streak.days[i]) {
-            streakList[i].classList.add("complete");
+    // Safe complete days update
+    if (Array.isArray(streak.days)) {
+        for (let i = 0; i < 7 && i < streakList.length; i++) {
+            if (streak.days[i] && streakList[i]) {
+                streakList[i].classList.add("complete");
+            }
         }
     }
+    
+    console.log('Loading custom workouts...');
+    await loadCustomWorkouts(user.uid);
+    console.log('Setting up workout block listeners...');
+    setupWorkoutBlockListeners();
 });
 
-// this will pass specific workouts to the detail page when pull push or legs is clicked
-document.querySelectorAll('.workout-block').forEach(block => {
-    block.addEventListener('click', function () {
-        const workoutId = this.getAttribute('data-workout');
-        localStorage.setItem('selectedWorkout', workoutId);
-        location.href = 'WorkoutDetail.html';
+async function loadCustomWorkouts(userId) 
+{
+    const workoutPanel = document.querySelector(".workout-panel");
+    
+    console.log('loadCustomWorkouts called for user:', userId);
+    console.log('workoutPanel found:', !!workoutPanel);
+
+    if(!workoutPanel) {
+        console.error('workout-panel not found!');
+        return;
+    }
+
+    // Remove any previously loaded dynamic blocks
+    const existingDynamic = workoutPanel.querySelectorAll(".workout-block[data-dynamic]");
+    console.log('Removing existing dynamic blocks:', existingDynamic.length);
+    existingDynamic.forEach(el => el.remove());
+
+    try
+    {
+        console.log('Querying Firestore for workouts...');
+        const workoutsCollection = collection(db, "users", userId, "workouts");
+        const querySnapshot = await getDocs(workoutsCollection);
+
+        console.log('✓ Query returned:', querySnapshot.docs.length, 'workouts');
+
+        if(querySnapshot.empty) {
+            console.log('No workouts found in Firestore');
+            return;
+        }
+
+        querySnapshot.forEach(doc => {
+            const workoutData = doc.data();
+            const workoutId = doc.id;
+            const exerciseCount = workoutData.exercises ? workoutData.exercises.length : 0;
+
+            console.log('Processing workout:', {
+                id: workoutId,
+                name: workoutData.name,
+                exerciseCount: exerciseCount
+            });
+
+            let exerciseRowsHTML = '';
+            if(workoutData.exercises)
+            {
+                workoutData.exercises.slice(0,3).forEach(exercise => {
+                    exerciseRowsHTML += `
+                        <div class="exercise-row">
+                            <span>${exercise.name}</span>
+                            <span>${exercise.sets.length} sets</span>
+                        </div>
+                    `;
+                });
+                if(exerciseCount > 3)
+                {
+                    exerciseRowsHTML += `
+                        <div class="exercise-row">
+                            <span>...and ${exerciseCount - 3} more</span>
+                        </div>
+                    `;
+                }
+            }
+
+            const blockHTML = `
+                <div class="workout-block" data-workout="${workoutId}" data-dynamic="true">
+                    <div class="block-header">
+                        <h3>${workoutData.name}</h3>
+                        <span>${exerciseCount} exercises</span>
+                    </div>
+                    ${exerciseRowsHTML}
+                </div>
+            `;
+
+            console.log('Inserting block HTML for:', workoutData.name);
+            workoutPanel.insertAdjacentHTML('beforeend', blockHTML);
+        });
+
+        console.log('✓ All workouts inserted into DOM');
+    }
+    catch (error)
+    {
+        console.error("✗ Error loading custom workouts:", error);
+    }
+}
+
+//function to initiate new workout creation
+function addNewWorkout()
+{
+    localStorage.removeItem('editWorkout');
+    localStorage.removeItem('selectedWorkout');
+    localStorage.setItem('isNewWorkout', 'true');
+    window.location.href = 'EditWorkout.html';
+}
+
+function setupWorkoutBlockListeners() 
+{
+    console.log('setupWorkoutBlockListeners called');
+    
+    const workoutPanel = document.querySelector('.workout-panel');
+    if(!workoutPanel) {
+        console.error('workout-panel not found!');
+        return;
+    }
+
+    // Check if listener already attached to avoid duplicates
+    if (workoutPanel._listenerAttached) {
+        console.log('Listener already attached');
+        return;
+    }
+
+    workoutPanel.addEventListener('click', function(e) {
+        console.log('Workout panel clicked');
+        const workoutBlock = e.target.closest('.workout-block');
+        if (workoutBlock) {
+            const workoutId = workoutBlock.getAttribute('data-workout');
+            console.log('Navigating to workout:', workoutId);
+            localStorage.removeItem('isNewWorkout');
+            localStorage.setItem('selectedWorkout', workoutId);
+            location.href = 'WorkoutDetail.html';
+        }
     });
-});
+
+    workoutPanel._listenerAttached = true;
+    console.log('Click listener attached');
+}
+
+window.addNewWorkout = addNewWorkout;
